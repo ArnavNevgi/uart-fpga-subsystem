@@ -1,23 +1,24 @@
 quietly WaveActivateNextPane {} 0
 
 add wave -divider "TB"
-add wave -radix binary sim:/tb_uart_rx/clk
-add wave -radix binary sim:/tb_uart_rx/rst_n
-add wave -radix binary sim:/tb_uart_rx/rx_enable
-add wave -radix binary sim:/tb_uart_rx/rx_i
-add wave -radix binary sim:/tb_uart_rx/os_tick
+add wave -radix binary sim:/tb_sync_fifo/clk
+add wave -radix binary sim:/tb_sync_fifo/rst_n
 
-add wave -divider "UART RX OUTPUTS"
-add wave -radix hexadecimal sim:/tb_uart_rx/rx_data
-add wave -radix binary sim:/tb_uart_rx/rx_valid
-add wave -radix binary sim:/tb_uart_rx/rx_busy
-add wave -radix binary sim:/tb_uart_rx/frame_error
+add wave -divider "FIFO WRITE SIDE"
+add wave -radix binary sim:/tb_sync_fifo/wr_en
+add wave -radix hexadecimal sim:/tb_sync_fifo/wr_data
+add wave -radix binary sim:/tb_sync_fifo/full
 
-add wave -divider "UART RX INTERNAL"
-add wave -radix symbolic sim:/tb_uart_rx/dut/state
-add wave -radix unsigned sim:/tb_uart_rx/dut/sample_cnt
-add wave -radix unsigned sim:/tb_uart_rx/dut/bit_cnt
-add wave -radix hexadecimal sim:/tb_uart_rx/dut/data_reg
+add wave -divider "FIFO READ SIDE"
+add wave -radix binary sim:/tb_sync_fifo/rd_en
+add wave -radix hexadecimal sim:/tb_sync_fifo/rd_data
+add wave -radix binary sim:/tb_sync_fifo/empty
+
+add wave -divider "FIFO INTERNAL"
+add wave -radix unsigned sim:/tb_sync_fifo/count
+add wave -radix unsigned sim:/tb_sync_fifo/dut/wr_ptr
+add wave -radix unsigned sim:/tb_sync_fifo/dut/rd_ptr
+add wave -radix hexadecimal sim:/tb_sync_fifo/dut/mem
 
 run 0
 wave zoom full

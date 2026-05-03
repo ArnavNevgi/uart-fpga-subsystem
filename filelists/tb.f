@@ -1,4 +1,4 @@
 +incdir+../../rtl
 +incdir+../../tb
 
-../../tb/tb_uart_rx.sv
+../../tb/tb_sync_fifo.sv

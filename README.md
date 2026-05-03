@@ -78,7 +78,8 @@ Project Phases
 |     0 | Project setup, specification, register map, verification plan | Complete    |
 |     1 | Baud generator and UART TX                                    | Complete    |
 |     2 | UART RX with 16x oversampling                                 | Complete    |
-|     3 | TX/RX FIFO integration                                        | Not started |
+|     3A| Standalone synchronous FIFO design and verification           | Complete    |
+|     3B| TX/RX FIFO integration and overrun verification               | Pending     |
 |     4 | Register interface and top-level integration                  | Not started |
 |     5 | Internal loopback mode                                        | Not started |
 |     6 | Assertions and functional coverage                            | Not started |
@@ -105,3 +106,46 @@ Result:
 
 ```text
 [PHASE 1 PASS] UART transmitter verified.
+
+Phase 2 — UART RX with 16x Oversampling
+
+Verified UART receiver behavior using oversampled UART stimulus.
+
+Validated:
+
+start-bit detection
+16x oversampling timing
+LSB-first byte reconstruction
+valid-frame receive
+invalid stop-bit frame error
+back-to-back receive sequence
+
+Result:
+
+[PHASE 2 PASS] UART receiver with 16x oversampling verified.
+
+Phase 3A — Standalone Synchronous FIFO
+
+Implemented and verified a parameterized synchronous FIFO for use in the UART TX and RX buffering paths.
+
+Validated:
+
+write until full
+read until empty
+FIFO full and empty flags
+data ordering across fill/drain sequence
+blocked overflow write
+blocked underflow read
+simultaneous read/write behavior
+
+Result:
+
+[PHASE 3A PASS] Standalone synchronous FIFO verified.
+
+Pending Phase 3B:
+
+integrate TX FIFO with UART TX path
+integrate RX FIFO with UART RX path
+expose TX/RX FIFO full and empty flags
+verify RX overrun detection
+verify UART back-to-back buffered transfers
