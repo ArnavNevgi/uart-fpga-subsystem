@@ -1,15 +1,14 @@
-# End time: 02:16:27 on May 04,2026, Elapsed time: 0:15:27
-# Errors: 1, Warnings: 2
-# vsim -coverage -voptargs=""+acc"" -wlf ../../docs/waveforms/phase6_assertions_coverage.wlf work.tb_uart_loopback 
-# Start time: 02:16:27 on May 04,2026
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# vsim -coverage -voptargs=""+acc"" -wlf ../../docs/waveforms/phase7_randomized_verification.wlf work.tb_uart_random 
+# Start time: 02:36:22 on May 04,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_regs(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "uart_fifo_subsystem(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
 # Loading sv_std.std
 # Loading work.uart_pkg(fast)
-# Loading work.tb_uart_loopback_sv_unit(fast)
-# Loading work.tb_uart_loopback(fast)
+# Loading work.tb_uart_random_sv_unit(fast)
+# Loading work.tb_uart_random(fast)
 # Loading work.uart_top_sv_unit(fast)
 # Loading work.uart_top(fast)
 # Loading work.baud_gen(fast)
@@ -26,80 +25,175 @@
 # Loading work.uart_coverage(fast)
 # ** Warning: (vsim-8634) Code was not compiled with coverage options.
 # ============================================================
-# PHASE 5 INTERNAL LOOPBACK TEST START
+# PHASE 7 RANDOMIZED UART VERIFICATION START
 # ============================================================
 # 0 ps
-# 1 ns
+# 3258 ps
+# [PASS] BAUD_DIV randomized readback=0x04 time=201000
 # ------------------------------------------------------------
-# BAUD_DIV setup
+# Random TX byte-stream test
 # ------------------------------------------------------------
-# [PASS] BAUD_DIV readback=0x04 time=161000
+# [INFO] TX-only byte 0 = 0xe7
+# [INFO] TX-only byte 1 = 0x7c
+# [INFO] TX-only byte 2 = 0x9c
+# [INFO] TX-only byte 3 = 0x1c
+# [INFO] TX-only byte 4 = 0xe8
+# [INFO] TX-only byte 5 = 0xa7
+# [INFO] TX-only byte 6 = 0x16
+# [INFO] TX-only byte 7 = 0xc4
+# [INFO] TX-only byte 8 = 0x00
+# [INFO] TX-only byte 9 = 0x59
+# [INFO] TX-only byte 10 = 0xf8
+# [INFO] TX-only byte 11 = 0xfb
+# [PASS] TX FIFO empty after random TX byte stream=1 time=88721000
+# [PASS] RX FIFO empty after TX-only stream=1 time=88751000
 # ------------------------------------------------------------
-# Enable TX/RX loopback
+# Random loopback packet test
 # ------------------------------------------------------------
-# [PASS] CONTROL.tx_enable=1 time=201000
-# [PASS] CONTROL.rx_enable=1 time=201000
-# [PASS] CONTROL.loopback_enable=1 time=201000
+# [INFO] Loopback TX byte 0 = 0x11
+# [PASS] Random loopback byte=0x11 time=104511000
+# [INFO] Loopback TX byte 1 = 0xa2
+# [PASS] Random loopback byte=0xa2 time=112411000
+# [INFO] Loopback TX byte 2 = 0xfc
+# [PASS] Random loopback byte=0xfc time=120411000
+# [INFO] Loopback TX byte 3 = 0xa5
+# [PASS] Random loopback byte=0xa5 time=128411000
+# [INFO] Loopback TX byte 4 = 0xde
+# [PASS] Random loopback byte=0xde time=136411000
+# [INFO] Loopback TX byte 5 = 0x96
+# [PASS] Random loopback byte=0x96 time=144411000
+# [INFO] Loopback TX byte 6 = 0x90
+# [PASS] Random loopback byte=0x90 time=152411000
+# [INFO] Loopback TX byte 7 = 0x17
+# [PASS] Random loopback byte=0x17 time=160411000
+# [INFO] Loopback TX byte 8 = 0xde
+# [PASS] Random loopback byte=0xde time=168411000
+# [INFO] Loopback TX byte 9 = 0x83
+# [PASS] Random loopback byte=0x83 time=176411000
+# [INFO] Loopback TX byte 10 = 0x86
+# [PASS] Random loopback byte=0x86 time=184411000
+# [INFO] Loopback TX byte 11 = 0x14
+# [PASS] Random loopback byte=0x14 time=192411000
+# [INFO] Loopback TX byte 12 = 0xcd
+# [PASS] Random loopback byte=0xcd time=200411000
+# [INFO] Loopback TX byte 13 = 0x5c
+# [PASS] Random loopback byte=0x5c time=208411000
+# [INFO] Loopback TX byte 14 = 0x4f
+# [PASS] Random loopback byte=0x4f time=216411000
+# [INFO] Loopback TX byte 15 = 0xb2
+# [PASS] Random loopback byte=0xb2 time=224411000
+# [INFO] Loopback TX byte 16 = 0x97
+# [PASS] Random loopback byte=0x97 time=232411000
+# [INFO] Loopback TX byte 17 = 0xff
+# [PASS] Random loopback byte=0xff time=240411000
+# [INFO] Loopback TX byte 18 = 0x1e
+# [PASS] Random loopback byte=0x1e time=248411000
+# [INFO] Loopback TX byte 19 = 0xac
+# [PASS] Random loopback byte=0xac time=256411000
+# [INFO] Loopback TX byte 20 = 0x2c
+# [PASS] Random loopback byte=0x2c time=264411000
+# [INFO] Loopback TX byte 21 = 0xe4
+# [PASS] Random loopback byte=0xe4 time=272411000
+# [INFO] Loopback TX byte 22 = 0x9e
+# [PASS] Random loopback byte=0x9e time=280411000
+# [INFO] Loopback TX byte 23 = 0x85
+# [PASS] Random loopback byte=0x85 time=288411000
 # ------------------------------------------------------------
-# Single-byte loopback test
+# Random external RX byte-stream test
 # ------------------------------------------------------------
-# Sending loopback byte: 0xa5
-# [PASS] STATUS.rx_valid after loopback byte=1 time=8021000
-# [PASS] STATUS.rx_fifo_empty after loopback byte=0 time=8021000
-# [PASS] Loopback DATA read=0xa5 time=8071000
-# [PASS] STATUS.rx_fifo_empty after DATA read=1 time=8091000
+# [INFO] External RX byte 0 = 0xb2
+# [PASS] Random external RX byte=0xb2 time=297781000
+# [INFO] External RX byte 1 = 0x9b
+# [PASS] Random external RX byte=0x9b time=306831000
+# [INFO] External RX byte 2 = 0x52
+# [PASS] Random external RX byte=0x52 time=315881000
+# [INFO] External RX byte 3 = 0xad
+# [PASS] Random external RX byte=0xad time=324931000
+# [INFO] External RX byte 4 = 0x31
+# [PASS] Random external RX byte=0x31 time=333981000
+# [INFO] External RX byte 5 = 0x18
+# [PASS] Random external RX byte=0x18 time=343031000
+# [INFO] External RX byte 6 = 0x99
+# [PASS] Random external RX byte=0x99 time=352081000
+# [INFO] External RX byte 7 = 0xc0
+# [PASS] Random external RX byte=0xc0 time=361131000
+# [INFO] External RX byte 8 = 0x02
+# [PASS] Random external RX byte=0x02 time=370181000
+# [INFO] External RX byte 9 = 0x8c
+# [PASS] Random external RX byte=0x8c time=379231000
+# [INFO] External RX byte 10 = 0xe1
+# [PASS] Random external RX byte=0xe1 time=388281000
+# [INFO] External RX byte 11 = 0x88
+# [PASS] Random external RX byte=0x88 time=397331000
+# [INFO] External RX byte 12 = 0x2f
+# [PASS] Random external RX byte=0x2f time=406381000
+# [INFO] External RX byte 13 = 0x35
+# [PASS] Random external RX byte=0x35 time=415431000
+# [INFO] External RX byte 14 = 0x14
+# [PASS] Random external RX byte=0x14 time=424481000
+# [INFO] External RX byte 15 = 0x0f
+# [PASS] Random external RX byte=0x0f time=433531000
 # ------------------------------------------------------------
-# Multiple-byte loopback test
+# Random FIFO stress test
 # ------------------------------------------------------------
-# Sending loopback byte: 0x3c
-# Sending loopback byte: 0x00
-# Sending loopback byte: 0xff
-# [PASS] STATUS.rx_valid after multiple loopback bytes=1 time=31981000
-# [PASS] STATUS.rx_fifo_empty after multiple loopback bytes=0 time=31981000
-# [PASS] Loopback DATA read byte 1=0x3c time=32031000
-# [PASS] Loopback DATA read byte 2=0x00 time=32081000
-# [PASS] Loopback DATA read byte 3=0xff time=32131000
-# [PASS] STATUS.rx_fifo_empty after all loopback reads=1 time=32151000
+# [PASS] RX FIFO full during random stress=1 time=577611000
+# [PASS] RX FIFO stress drain byte=0x11 time=577671000
+# [PASS] RX FIFO stress drain byte=0x2d time=577731000
+# [PASS] RX FIFO stress drain byte=0x48 time=577791000
+# [PASS] RX FIFO stress drain byte=0xd7 time=577851000
+# [PASS] RX FIFO stress drain byte=0x1d time=577911000
+# [PASS] RX FIFO stress drain byte=0xc1 time=577971000
+# [PASS] RX FIFO stress drain byte=0xf5 time=578031000
+# [PASS] RX FIFO stress drain byte=0x98 time=578091000
+# [PASS] RX FIFO stress drain byte=0x82 time=578151000
+# [PASS] RX FIFO stress drain byte=0x82 time=578211000
+# [PASS] RX FIFO stress drain byte=0x71 time=578271000
+# [PASS] RX FIFO stress drain byte=0xc1 time=578331000
+# [PASS] RX FIFO stress drain byte=0x15 time=578391000
+# [PASS] RX FIFO stress drain byte=0x53 time=578451000
+# [PASS] RX FIFO stress drain byte=0x7e time=578511000
+# [PASS] RX FIFO stress drain byte=0x8f time=578571000
+# [PASS] RX FIFO empty after random stress drain=1 time=578601000
+# [PASS] TX FIFO full during random stress=1 time=579171000
+# [PASS] TX FIFO empty after TX drain=1 time=699471000
 # ------------------------------------------------------------
-# Loopback disabled negative test
+# Random baud divisor selection test
 # ------------------------------------------------------------
-# [PASS] CONTROL.loopback_enable disabled=0 time=32191000
-# [PASS] RX FIFO remains empty when loopback disabled=1 time=32721000
+# [PASS] BAUD_DIV randomized readback=0x04 time=707271000
+# [PASS] Loopback byte after random baud divisor=0x43 time=715111000
+# [PASS] BAUD_DIV randomized readback=0x06 time=715271000
+# [PASS] Loopback byte after random baud divisor=0x4d time=726161000
+# [PASS] BAUD_DIV randomized readback=0x08 time=726471000
+# [PASS] Loopback byte after random baud divisor=0x75 time=740371000
+# [PASS] BAUD_DIV randomized readback=0x06 time=740871000
+# [PASS] Loopback byte after random baud divisor=0xd6 time=751761000
+# [PASS] BAUD_DIV randomized readback=0x04 time=752071000
 # ------------------------------------------------------------
-# External RX frame error coverage test
+# Error injection test
 # ------------------------------------------------------------
-# [PASS] STATUS.frame_error after external bad stop bit=1 time=41791000
+# [PASS] Frame error after invalid stop bit=1 time=761461000
+# [PASS] RX FIFO full before overrun injection=1 time=905561000
+# [PASS] Overrun error after extra RX byte=1 time=914761000
 # ------------------------------------------------------------
-# TX FIFO full coverage test
+# Back-to-back queued loopback transfer test
 # ------------------------------------------------------------
-# [PASS] STATUS.tx_fifo_full after directed fill=1 time=42151000
-# [PASS] STATUS.tx_fifo_empty after directed drain=1 time=162461000
-# ------------------------------------------------------------
-# RX FIFO full and overrun coverage test
-# ------------------------------------------------------------
-# Sending loopback byte: 0x00
-# Sending loopback byte: 0x01
-# Sending loopback byte: 0x02
-# Sending loopback byte: 0x03
-# Sending loopback byte: 0x04
-# Sending loopback byte: 0x05
-# Sending loopback byte: 0x06
-# Sending loopback byte: 0x07
-# Sending loopback byte: 0x08
-# Sending loopback byte: 0x09
-# Sending loopback byte: 0x0a
-# Sending loopback byte: 0x0b
-# Sending loopback byte: 0x0c
-# Sending loopback byte: 0x0d
-# Sending loopback byte: 0x0e
-# Sending loopback byte: 0x0f
-# [PASS] STATUS.rx_fifo_full after directed fill=1 time=289991000
-# [PASS] STATUS.overrun_error after extra RX byte=1 time=297881000
+# [PASS] Back-to-back loopback byte=0xa5 time=963671000
+# [PASS] Back-to-back loopback byte=0x3c time=963731000
+# [PASS] Back-to-back loopback byte=0x00 time=963791000
+# [PASS] Back-to-back loopback byte=0xff time=963851000
+# [PASS] Back-to-back loopback byte=0xd3 time=963911000
+# [PASS] Back-to-back loopback byte=0x01 time=963971000
+# ================ UART VERIFICATION SUMMARY ================
+# Directed tests      : PASS
+# Random tests        : PASS
+# Scoreboard errors   : 0
+# Assertions          :      PASS
+# Functional coverage : 72.22%
 # ============================================================
-# [PHASE 5 PASS] Internal loopback verified.
-# [PHASE 6 PASS] Assertions and functional coverage added.
+# [PHASE 7 PASS] UART subsystem verification complete.
+# [PHASE 7 PASS] Self-checking verification complete.
 # ============================================================
-# ** Note: $finish    : ../../tb/tb_uart_loopback.sv(520)
-#    Time: 297881 ns  Iteration: 0  Instance: /tb_uart_loopback
+# ** Note: $finish    : ../../tb/tb_uart_random.sv(683)
+#    Time: 963971 ns  Iteration: 0  Instance: /tb_uart_random
 # 1
-# Break in Module tb_uart_loopback at ../../tb/tb_uart_loopback.sv line 520
+# Break in Module tb_uart_random at ../../tb/tb_uart_random.sv line 683

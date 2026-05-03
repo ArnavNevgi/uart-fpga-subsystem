@@ -269,3 +269,36 @@ Questa TB compile : Errors: 0, Warnings: 0
 - Protocol and integration assertions
 - Functional coverage
 - QuestaSim simulation scripts
+
+### Phase 7 — Randomized Verification
+
+Added a self-checking randomized verification regression for the integrated UART subsystem.
+
+Verified:
+- random TX byte stream
+- random RX byte stream
+- random loopback packets
+- random FIFO stress
+- random baud divisor selection
+- error injection
+- back-to-back transfers
+- scoreboard-based pass/fail checking
+- assertion-clean regression
+- functional coverage reporting
+
+Final simulation summary:
+
+```text
+================ UART VERIFICATION SUMMARY ================
+Directed tests      : PASS
+Random tests        : PASS
+Scoreboard errors   : 0
+Assertions          : PASS
+Functional coverage : 72.22%
+============================================================
+[PHASE 7 PASS] UART subsystem verification complete.
+[PHASE 7 PASS] Self-checking verification complete.
+
+Coverage report:
+
+sim/logs/phase7_coverage_report.txt
