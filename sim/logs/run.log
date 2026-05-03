@@ -1,0 +1,79 @@
+# vsim -voptargs=""+acc"" work.tb_uart_tx 
+# Start time: 23:22:20 on May 03,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# Loading sv_std.std
+# Loading work.uart_pkg(fast)
+# Loading work.tb_uart_tx_sv_unit(fast)
+# Loading work.tb_uart_tx(fast)
+# Loading work.baud_gen(fast)
+# Loading work.uart_tx_sv_unit(fast)
+# Loading work.uart_tx(fast)
+# ============================================================
+# PHASE 1 UART TX TEST START
+# ============================================================
+# 0 ps
+# 1 ns
+# ------------------------------------------------------------
+# Testing TX byte: 0xa5
+# ------------------------------------------------------------
+# [PASS] START_BIT = 0 time=136000
+# [PASS] DATA_BIT_0 = 1 time=186000
+# [PASS] DATA_BIT_1 = 0 time=236000
+# [PASS] DATA_BIT_2 = 1 time=286000
+# [PASS] DATA_BIT_3 = 0 time=336000
+# [PASS] DATA_BIT_4 = 0 time=386000
+# [PASS] DATA_BIT_5 = 1 time=436000
+# [PASS] DATA_BIT_6 = 0 time=486000
+# [PASS] DATA_BIT_7 = 1 time=536000
+# [PASS] STOP_BIT = 1 time=586000
+# ------------------------------------------------------------
+# Testing TX byte: 0x3c
+# ------------------------------------------------------------
+# [PASS] START_BIT = 0 time=706000
+# [PASS] DATA_BIT_0 = 0 time=756000
+# [PASS] DATA_BIT_1 = 0 time=806000
+# [PASS] DATA_BIT_2 = 1 time=856000
+# [PASS] DATA_BIT_3 = 1 time=906000
+# [PASS] DATA_BIT_4 = 1 time=956000
+# [PASS] DATA_BIT_5 = 1 time=1006000
+# [PASS] DATA_BIT_6 = 0 time=1056000
+# [PASS] DATA_BIT_7 = 0 time=1106000
+# [PASS] STOP_BIT = 1 time=1156000
+# ------------------------------------------------------------
+# Testing TX byte: 0x00
+# ------------------------------------------------------------
+# [PASS] START_BIT = 0 time=1276000
+# [PASS] DATA_BIT_0 = 0 time=1326000
+# [PASS] DATA_BIT_1 = 0 time=1376000
+# [PASS] DATA_BIT_2 = 0 time=1426000
+# [PASS] DATA_BIT_3 = 0 time=1476000
+# [PASS] DATA_BIT_4 = 0 time=1526000
+# [PASS] DATA_BIT_5 = 0 time=1576000
+# [PASS] DATA_BIT_6 = 0 time=1626000
+# [PASS] DATA_BIT_7 = 0 time=1676000
+# [PASS] STOP_BIT = 1 time=1726000
+# ------------------------------------------------------------
+# Testing TX byte: 0xff
+# ------------------------------------------------------------
+# [PASS] START_BIT = 0 time=1846000
+# [PASS] DATA_BIT_0 = 1 time=1896000
+# [PASS] DATA_BIT_1 = 1 time=1946000
+# [PASS] DATA_BIT_2 = 1 time=1996000
+# [PASS] DATA_BIT_3 = 1 time=2046000
+# [PASS] DATA_BIT_4 = 1 time=2096000
+# [PASS] DATA_BIT_5 = 1 time=2146000
+# [PASS] DATA_BIT_6 = 1 time=2196000
+# [PASS] DATA_BIT_7 = 1 time=2246000
+# [PASS] STOP_BIT = 1 time=2296000
+# ============================================================
+# [PHASE 1 PASS] UART transmitter verified.
+# ============================================================
+# ** Note: $finish    : ../../tb/tb_uart_tx.sv(148)
+#    Time: 2345 ns  Iteration: 1  Instance: /tb_uart_tx
+# 1
+# Break in Module tb_uart_tx at ../../tb/tb_uart_tx.sv line 148
+# ../logs/run.log
+# ============================================================
+# SIMULATION DONE
+# ============================================================
