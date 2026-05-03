@@ -1,6 +1,6 @@
 # Deleting old work library...
-# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt".  Locker is ajnev@NEVGI.
-# Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/@_opt1".
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt1".  Locker is ajnev@NEVGI.
+# Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/@_opt".
 # Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/_temp".
 # Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/_tempmsg".
 # Creating work library...
@@ -10,7 +10,7 @@
 # Modifying modelsim.ini
 # Compiling RTL files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 01:14:43 on May 04,2026
+# Start time: 01:41:35 on May 04,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/rtl.f 
 # -- Compiling package uart_pkg
 # -- Compiling module baud_gen
@@ -33,19 +33,23 @@
 # 
 # Top level modules:
 # 	uart_top
-# End time: 01:14:43 on May 04,2026, Elapsed time: 0:00:00
+# End time: 01:41:35 on May 04,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Compiling TB files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 01:14:44 on May 04,2026
+# Start time: 01:41:35 on May 04,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/tb.f 
 # -- Compiling package tb_uart_top_sv_unit
 # -- Importing package uart_pkg
 # -- Compiling module tb_uart_top
+# -- Compiling package tb_uart_loopback_sv_unit
+# -- Importing package uart_pkg
+# -- Compiling module tb_uart_loopback
 # 
 # Top level modules:
 # 	tb_uart_top
-# End time: 01:14:44 on May 04,2026, Elapsed time: 0:00:00
+# 	tb_uart_loopback
+# End time: 01:41:36 on May 04,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # Compilation completed.
 # Check ../logs/compile.log for full transcript.

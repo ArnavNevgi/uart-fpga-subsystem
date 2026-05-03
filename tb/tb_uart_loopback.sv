@@ -2,7 +2,7 @@
 
 import uart_pkg::*;
 
-module tb_uart_top;
+module tb_uart_loopback;
 
   localparam int CLK_PERIOD_NS = 10;
   localparam int FIFO_DEPTH    = 16;
@@ -142,36 +142,16 @@ module tb_uart_top;
     end
   endtask
 
-  task automatic wait_os_ticks(input int ticks);
+  task automatic send_loopback_byte(input logic [7:0] data);
+    int unsigned rx_count_before;
     begin
-      repeat (ticks) begin
-        @(posedge dut.os_tick);
-      end
-      #1;
-    end
-  endtask
+      $display("Sending loopback byte: 0x%02h", data);
 
-  task automatic drive_uart_rx_byte(
-    input logic [7:0] data,
-    input logic       good_stop_bit
-  );
-    begin
-      uart_rx_i = 1'b1;
-      wait_os_ticks(16);
+      rx_count_before = dut.u_uart_fifo_subsystem.rx_fifo_count;
+      bus_write(ADDR_DATA, {24'h0, data});
 
-      uart_rx_i = 1'b0;
-      wait_os_ticks(16);
-
-      for (int i = 0; i < 8; i++) begin
-        uart_rx_i = data[i];
-        wait_os_ticks(16);
-      end
-
-      uart_rx_i = good_stop_bit;
-      wait_os_ticks(16);
-
-      uart_rx_i = 1'b1;
-      wait_os_ticks(2);
+      wait (dut.u_uart_fifo_subsystem.rx_fifo_count > rx_count_before);
+      repeat (10) @(posedge clk);
     end
   endtask
 
@@ -179,139 +159,125 @@ module tb_uart_top;
 
   initial begin
     $display("============================================================");
-    $display("PHASE 4 UART TOP REGISTER INTERFACE TEST START");
+    $display("PHASE 5 INTERNAL LOOPBACK TEST START");
     $display("============================================================");
 
     reset_dut();
 
     // ------------------------------------------------------------
-    // BAUD_DIV register test
+    // Configure baud divisor
     // ------------------------------------------------------------
 
     $display("------------------------------------------------------------");
-    $display("BAUD_DIV register test");
+    $display("BAUD_DIV setup");
     $display("------------------------------------------------------------");
 
-    bus_write(ADDR_BAUDDIV, 32'(TEST_BAUD_DIV));
+    bus_write(ADDR_BAUDDIV, 32'd4);
     bus_read(ADDR_BAUDDIV, rdata);
     expect_data(rdata, TEST_BAUD_DIV[7:0], "BAUD_DIV readback");
 
     // ------------------------------------------------------------
-    // CONTROL register test
-    // tx_enable=0, rx_enable=1, loopback=0
+    // Enable TX, RX, and loopback
+    // CONTROL bits:
+    // bit 0 = tx_enable
+    // bit 1 = rx_enable
+    // bit 2 = loopback_enable
+    // value = 0b111 = 0x7
     // ------------------------------------------------------------
 
     $display("------------------------------------------------------------");
-    $display("CONTROL register test");
+    $display("Enable TX/RX loopback");
     $display("------------------------------------------------------------");
 
-    bus_write(ADDR_CONTROL, 32'h0000_0002);
+    bus_write(ADDR_CONTROL, 32'h0000_0007);
     bus_read(ADDR_CONTROL, rdata);
 
-    expect_bit(rdata, CTRL_TX_ENABLE,       1'b0, "CONTROL.tx_enable");
+    expect_bit(rdata, CTRL_TX_ENABLE,       1'b1, "CONTROL.tx_enable");
     expect_bit(rdata, CTRL_RX_ENABLE,       1'b1, "CONTROL.rx_enable");
-    expect_bit(rdata, CTRL_LOOPBACK_ENABLE, 1'b0, "CONTROL.loopback_enable");
+    expect_bit(rdata, CTRL_LOOPBACK_ENABLE, 1'b1, "CONTROL.loopback_enable");
+
+    // External RX line is held idle high.
+    // Any received byte must come from internal loopback, not external stimulus.
+    uart_rx_i = 1'b1;
 
     // ------------------------------------------------------------
-    // STATUS after reset/config
+    // Single-byte loopback
     // ------------------------------------------------------------
 
     $display("------------------------------------------------------------");
-    $display("STATUS register initial flag test");
+    $display("Single-byte loopback test");
     $display("------------------------------------------------------------");
+
+    send_loopback_byte(8'hA5);
 
     bus_read(ADDR_STATUS, rdata);
+    expect_bit(rdata, STATUS_RX_VALID,      1'b1, "STATUS.rx_valid after loopback byte");
+    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b0, "STATUS.rx_fifo_empty after loopback byte");
 
-    expect_bit(rdata, STATUS_TX_FIFO_EMPTY, 1'b1, "STATUS.tx_fifo_empty");
-    expect_bit(rdata, STATUS_TX_FIFO_FULL,  1'b0, "STATUS.tx_fifo_full");
-    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b1, "STATUS.rx_fifo_empty");
-    expect_bit(rdata, STATUS_RX_FIFO_FULL,  1'b0, "STATUS.rx_fifo_full");
+    bus_read(ADDR_DATA, rdata);
+    expect_data(rdata, 8'hA5, "Loopback DATA read");
+
+    bus_read(ADDR_STATUS, rdata);
+    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b1, "STATUS.rx_fifo_empty after DATA read");
 
     // ------------------------------------------------------------
-    // DATA write to TX FIFO with TX disabled
+    // Multiple-byte loopback
     // ------------------------------------------------------------
 
     $display("------------------------------------------------------------");
-    $display("DATA register TX FIFO fill test");
+    $display("Multiple-byte loopback test");
     $display("------------------------------------------------------------");
 
-    for (int i = 0; i < FIFO_DEPTH; i++) begin
-      bus_write(ADDR_DATA, {24'h0, i[7:0]});
-    end
+    send_loopback_byte(8'h3C);
+    send_loopback_byte(8'h00);
+    send_loopback_byte(8'hFF);
 
     bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_TX_FIFO_FULL,  1'b1, "STATUS.tx_fifo_full after DATA writes");
-    expect_bit(rdata, STATUS_TX_FIFO_EMPTY, 1'b0, "STATUS.tx_fifo_empty after DATA writes");
+    expect_bit(rdata, STATUS_RX_VALID,      1'b1, "STATUS.rx_valid after multiple loopback bytes");
+    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b0, "STATUS.rx_fifo_empty after multiple loopback bytes");
 
-    // Overflow attempt should not crash or change full flag
-    bus_write(ADDR_DATA, 32'h0000_00EE);
+    bus_read(ADDR_DATA, rdata);
+    expect_data(rdata, 8'h3C, "Loopback DATA read byte 1");
+
+    bus_read(ADDR_DATA, rdata);
+    expect_data(rdata, 8'h00, "Loopback DATA read byte 2");
+
+    bus_read(ADDR_DATA, rdata);
+    expect_data(rdata, 8'hFF, "Loopback DATA read byte 3");
+
     bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_TX_FIFO_FULL, 1'b1, "STATUS.tx_fifo_full after overflow attempt");
+    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b1, "STATUS.rx_fifo_empty after all loopback reads");
 
-    // Enable TX and wait for TX FIFO drain
+    // ------------------------------------------------------------
+    // Loopback disabled negative check
+    // ------------------------------------------------------------
+
+    $display("------------------------------------------------------------");
+    $display("Loopback disabled negative test");
+    $display("------------------------------------------------------------");
+
+    // Enable TX/RX, disable loopback: 0b011 = 0x3
     bus_write(ADDR_CONTROL, 32'h0000_0003);
+    bus_read(ADDR_CONTROL, rdata);
+    expect_bit(rdata, CTRL_LOOPBACK_ENABLE, 1'b0, "CONTROL.loopback_enable disabled");
 
+    uart_rx_i = 1'b1;
+
+    bus_write(ADDR_DATA, 32'h0000_005A);
+
+    // Wait long enough for TX to complete.
     wait (dut.u_uart_fifo_subsystem.tx_fifo_empty === 1'b1);
-    repeat (20) @(posedge clk);
+    wait (dut.u_uart_fifo_subsystem.tx_busy === 1'b0);
+    repeat (50) @(posedge clk);
 
     bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_TX_FIFO_EMPTY, 1'b1, "STATUS.tx_fifo_empty after TX drain");
-    expect_bit(rdata, STATUS_TX_FIFO_FULL,  1'b0, "STATUS.tx_fifo_full after TX drain");
-
-    // ------------------------------------------------------------
-    // RX DATA read path
-    // ------------------------------------------------------------
-
-    $display("------------------------------------------------------------");
-    $display("RX DATA register read test");
-    $display("------------------------------------------------------------");
-
-    drive_uart_rx_byte(8'hA5, 1'b1);
-    drive_uart_rx_byte(8'h3C, 1'b1);
-
-    repeat (20) @(posedge clk);
-
-    bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_RX_VALID,      1'b1, "STATUS.rx_valid after RX bytes");
-    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b0, "STATUS.rx_fifo_empty after RX bytes");
-
-    bus_read(ADDR_DATA, rdata);
-    expect_data(rdata, 8'hA5, "DATA read first RX byte");
-
-    bus_read(ADDR_DATA, rdata);
-    expect_data(rdata, 8'h3C, "DATA read second RX byte");
-
-    bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b1, "STATUS.rx_fifo_empty after RX reads");
-
-    // ------------------------------------------------------------
-    // Frame error and clear_errors
-    // ------------------------------------------------------------
-
-    $display("------------------------------------------------------------");
-    $display("Frame error and clear_errors test");
-    $display("------------------------------------------------------------");
-
-    drive_uart_rx_byte(8'h55, 1'b0);
-    repeat (20) @(posedge clk);
-
-    bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_FRAME_ERROR, 1'b1, "STATUS.frame_error after bad stop bit");
-
-    bus_write(ADDR_CONTROL, 32'h0000_000B); // tx=1, rx=1, clear_errors=1
-    repeat (5) @(posedge clk);
-
-    bus_write(ADDR_CONTROL, 32'h0000_0003); // tx=1, rx=1, clear_errors=0
-    repeat (5) @(posedge clk);
-
-    bus_read(ADDR_STATUS, rdata);
-    expect_bit(rdata, STATUS_OVERRUN_ERROR, 1'b0, "STATUS.overrun_error clear check");
+    expect_bit(rdata, STATUS_RX_FIFO_EMPTY, 1'b1, "RX FIFO remains empty when loopback disabled");
 
     $display("============================================================");
     if (errors == 0) begin
-      $display("[PHASE 4 PASS] Register-controlled UART top-level verified.");
+      $display("[PHASE 5 PASS] Internal loopback verified.");
     end else begin
-      $display("[PHASE 4 FAIL] errors=%0d", errors);
+      $display("[PHASE 5 FAIL] errors=%0d", errors);
     end
     $display("============================================================");
 

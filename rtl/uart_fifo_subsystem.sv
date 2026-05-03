@@ -82,9 +82,10 @@ module uart_fifo_subsystem #(
     .tx_done   (tx_done)
   );
 
-  typedef enum logic [1:0] {
+  typedef enum logic [2:0] {
     TXC_IDLE,
-    TXC_READ_FIFO,
+    TXC_WAIT_FIFO,
+    TXC_CAPTURE_FIFO,
     TXC_START_TX,
     TXC_WAIT_DONE
   } tx_ctrl_state_t;
@@ -106,11 +107,15 @@ module uart_fifo_subsystem #(
         TXC_IDLE: begin
           if (tx_enable && !tx_fifo_empty && !tx_busy) begin
             tx_fifo_rd_en <= 1'b1;
-            tx_ctrl_state <= TXC_READ_FIFO;
+            tx_ctrl_state <= TXC_WAIT_FIFO;
           end
         end
 
-        TXC_READ_FIFO: begin
+        TXC_WAIT_FIFO: begin
+          tx_ctrl_state <= TXC_CAPTURE_FIFO;
+        end
+
+        TXC_CAPTURE_FIFO: begin
           tx_data_to_send <= tx_fifo_rd_data;
           tx_ctrl_state   <= TXC_START_TX;
         end

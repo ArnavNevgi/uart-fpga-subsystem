@@ -80,9 +80,9 @@ Project Phases
 |     2 | UART RX with 16x oversampling                                 | Complete    |
 |     3A| Standalone synchronous FIFO design and verification           | Complete    |
 |     3B| TX/RX FIFO integration and overrun verification               | Complete    |
-|     4 | Register interface and top-level integration                  | Not started |
-|     5 | Internal loopback mode                                        | Not started |
-|     6 | Assertions and functional coverage                            | Not started |
+|     4 | Register interface and top-level integration                  | Complete    |
+|     5 | Internal loopback mode                                        | Complete    |
+|     6 | Assertions and functional coverage                            | Complete    |
 |     7 | Randomized verification                                       | Not started |
 |     8 | Vivado synthesis, implementation, timing, utilization         | Not started |
 |     9 | GitHub polish and resume documentation                        | Not started |
@@ -187,3 +187,25 @@ Result:
 
 ```text
 [PHASE 4 PASS] Register-controlled UART top-level verified.
+
+### Phase 5 — Internal Loopback Mode
+
+Verified internal UART loopback mode through the memory-mapped register interface.
+
+Validated:
+- `CONTROL.loopback_enable` register bit
+- internal routing from UART TX output into UART RX input
+- loopback operation without external RX stimulus
+- TX `DATA` register write followed by RX `DATA` register readback
+- multiple-byte loopback sequence
+- negative case where RX FIFO remains empty when loopback is disabled
+
+Resolved:
+- fixed TX FIFO controller latency by adding wait/capture states before launching UART TX
+- fixed registered RX FIFO `DATA` read timing so `bus_ready` asserts only after `bus_rdata` is stable
+- updated testbench bus read timing to sample stable read data after `bus_ready`
+
+Result:
+
+```text
+[PHASE 5 PASS] Internal loopback verified.

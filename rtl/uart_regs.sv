@@ -48,10 +48,11 @@ module uart_regs #(
   logic [REG_WIDTH-1:0] baud_div_reg;
 
   typedef enum logic [1:0] {
-  REG_IDLE,
-  REG_READ_DATA_WAIT,
-  REG_READ_DATA_CAPTURE
-} reg_state_t;
+    REG_IDLE,
+    REG_READ_DATA_WAIT,
+    REG_READ_DATA_CAPTURE,
+    REG_READ_DATA_RESP
+  } reg_state_t;
 
   reg_state_t state;
 
@@ -168,14 +169,21 @@ module uart_regs #(
         end
 
         REG_READ_DATA_WAIT: begin
-  // Wait one cycle for the synchronous FIFO read to update rx_fifo_rd_data
-  state <= REG_READ_DATA_CAPTURE;
-end
+          state <= REG_READ_DATA_CAPTURE;
+        end
 
         REG_READ_DATA_CAPTURE: begin
           bus_rdata <= {{(REG_WIDTH-DATA_WIDTH){1'b0}}, rx_fifo_rd_data};
+          state     <= REG_READ_DATA_RESP;
+        end
+
+        REG_READ_DATA_RESP: begin
           bus_ready <= 1'b1;
           state     <= REG_IDLE;
+        end
+
+        default: begin
+          state <= REG_IDLE;
         end
 
       endcase
