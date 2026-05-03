@@ -1,0 +1,2 @@
++incdir+../../rtl
++incdir+../../tb
