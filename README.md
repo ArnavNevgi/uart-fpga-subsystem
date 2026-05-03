@@ -79,7 +79,7 @@ Project Phases
 |     1 | Baud generator and UART TX                                    | Complete    |
 |     2 | UART RX with 16x oversampling                                 | Complete    |
 |     3A| Standalone synchronous FIFO design and verification           | Complete    |
-|     3B| TX/RX FIFO integration and overrun verification               | Pending     |
+|     3B| TX/RX FIFO integration and overrun verification               | Complete    |
 |     4 | Register interface and top-level integration                  | Not started |
 |     5 | Internal loopback mode                                        | Not started |
 |     6 | Assertions and functional coverage                            | Not started |
@@ -142,10 +142,20 @@ Result:
 
 [PHASE 3A PASS] Standalone synchronous FIFO verified.
 
-Pending Phase 3B:
+### Phase 3B — TX/RX FIFO Buffering Integration
 
-integrate TX FIFO with UART TX path
-integrate RX FIFO with UART RX path
-expose TX/RX FIFO full and empty flags
-verify RX overrun detection
-verify UART back-to-back buffered transfers
+Integrated the parameterized synchronous FIFO into the UART subsystem as separate TX and RX buffers.
+
+Validated:
+- TX FIFO write until full
+- TX FIFO full and empty flags
+- TX FIFO drain through UART TX path
+- RX FIFO fill from UART RX back-to-back received bytes
+- RX FIFO read until empty
+- RX FIFO data ordering
+- RX overrun detection when a valid byte arrives while RX FIFO is full
+
+Result:
+
+```text
+[PHASE 3B PASS] TX/RX FIFO buffering and RX overrun verified.

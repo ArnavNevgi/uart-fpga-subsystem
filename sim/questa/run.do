@@ -1,10 +1,10 @@
 echo "============================================================"
-echo "Running Phase 3 FIFO Simulation"
+echo "Running Phase 3B UART FIFO Subsystem Simulation"
 echo "============================================================"
 
 transcript file ../logs/run.log
 
-vsim -voptargs="+acc" -wlf ../../docs/waveforms/phase3_sync_fifo_basic.wlf work.tb_sync_fifo
+vsim -voptargs="+acc" -wlf ../../docs/waveforms/phase3b_uart_fifo_subsystem.wlf work.tb_uart_fifo_subsystem
 
 do wave.do
 
