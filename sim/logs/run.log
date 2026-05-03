@@ -1,16 +1,18 @@
-# End time: 23:59:08 on May 03,2026, Elapsed time: 0:07:54
+# End time: 01:14:51 on May 04,2026, Elapsed time: 0:04:39
 # Errors: 0, Warnings: 1
-# vsim -voptargs=""+acc"" -wlf ../../docs/waveforms/phase3b_uart_fifo_subsystem.wlf work.tb_uart_fifo_subsystem 
-# Start time: 23:59:08 on May 03,2026
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Note: (vopt-143) Recognized 1 FSM in module "uart_fifo_subsystem(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# vsim -voptargs=""+acc"" -wlf ../../docs/waveforms/phase4_uart_top_register_interface.wlf work.tb_uart_top 
+# Start time: 01:14:51 on May 04,2026
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_regs(fast)".
 # Loading sv_std.std
 # Loading work.uart_pkg(fast)
-# Loading work.tb_uart_fifo_subsystem_sv_unit(fast)
-# Loading work.tb_uart_fifo_subsystem(fast)
+# Loading work.tb_uart_top_sv_unit(fast)
+# Loading work.tb_uart_top(fast)
+# Loading work.uart_top_sv_unit(fast)
+# Loading work.uart_top(fast)
 # Loading work.baud_gen(fast)
+# Loading work.uart_regs_sv_unit(fast)
+# Loading work.uart_regs(fast)
 # Loading work.uart_fifo_subsystem_sv_unit(fast)
 # Loading work.uart_fifo_subsystem(fast)
 # Loading work.sync_fifo(fast)
@@ -19,82 +21,55 @@
 # Loading work.uart_rx_sv_unit(fast)
 # Loading work.uart_rx(fast)
 # ============================================================
-# PHASE 3B UART FIFO SUBSYSTEM TEST START
+# PHASE 4 UART TOP REGISTER INTERFACE TEST START
 # ============================================================
 # 0 ps
 # 1 ns
-# [PASS] TX FIFO empty after reset=1 time=127000
-# [PASS] TX FIFO full after reset=0 time=128000
-# [PASS] RX FIFO empty after reset=1 time=129000
-# [PASS] RX FIFO full after reset=0 time=130000
-# [PASS] Overrun clear after reset=0 time=131000
 # ------------------------------------------------------------
-# TX FIFO fill and full-flag test
+# BAUD_DIV register test
 # ------------------------------------------------------------
-# [PASS] TX FIFO full after 16 writes=1 time=452000
-# [PASS] TX FIFO not empty after 16 writes=0 time=453000
-# [PASS] TX FIFO remains full after overflow attempt=1 time=472000
+# [PASS] BAUD_DIV readback=0x04 time=161000
 # ------------------------------------------------------------
-# TX FIFO drain through UART TX test
+# CONTROL register test
 # ------------------------------------------------------------
-# [PASS] TX FIFO empty after UART TX drain=1 time=120217000
-# [PASS] TX FIFO not full after UART TX drain=0 time=120218000
+# [PASS] CONTROL.tx_enable=0 time=201000
+# [PASS] CONTROL.rx_enable=1 time=201000
+# [PASS] CONTROL.loopback_enable=0 time=201000
 # ------------------------------------------------------------
-# RX FIFO back-to-back receive fill test
+# STATUS register initial flag test
 # ------------------------------------------------------------
-# [PASS] RX FIFO full after 16 received bytes=1 time=250677000
-# [PASS] RX FIFO not empty after received bytes=0 time=250678000
+# [PASS] STATUS.tx_fifo_empty=1 time=221000
+# [PASS] STATUS.tx_fifo_full=0 time=221000
+# [PASS] STATUS.rx_fifo_empty=1 time=221000
+# [PASS] STATUS.rx_fifo_full=0 time=221000
 # ------------------------------------------------------------
-# RX FIFO read-until-empty and data-order test
+# DATA register TX FIFO fill test
 # ------------------------------------------------------------
-# [PASS] RX FIFO read data=0x80 time=250691000
-# [PASS] RX FIFO read data=0x81 time=250711000
-# [PASS] RX FIFO read data=0x82 time=250731000
-# [PASS] RX FIFO read data=0x83 time=250751000
-# [PASS] RX FIFO read data=0x84 time=250771000
-# [PASS] RX FIFO read data=0x85 time=250791000
-# [PASS] RX FIFO read data=0x86 time=250811000
-# [PASS] RX FIFO read data=0x87 time=250831000
-# [PASS] RX FIFO read data=0x88 time=250851000
-# [PASS] RX FIFO read data=0x89 time=250871000
-# [PASS] RX FIFO read data=0x8a time=250891000
-# [PASS] RX FIFO read data=0x8b time=250911000
-# [PASS] RX FIFO read data=0x8c time=250931000
-# [PASS] RX FIFO read data=0x8d time=250951000
-# [PASS] RX FIFO read data=0x8e time=250971000
-# [PASS] RX FIFO read data=0x8f time=250991000
-# [PASS] RX FIFO empty after drain=1 time=250992000
-# [PASS] RX FIFO not full after drain=0 time=250993000
+# [PASS] STATUS.tx_fifo_full after DATA writes=1 time=561000
+# [PASS] STATUS.tx_fifo_empty after DATA writes=0 time=561000
+# [PASS] STATUS.tx_fifo_full after overflow attempt=1 time=601000
+# [PASS] STATUS.tx_fifo_empty after TX drain=1 time=120841000
+# [PASS] STATUS.tx_fifo_full after TX drain=0 time=120841000
 # ------------------------------------------------------------
-# RX overrun test
+# RX DATA register read test
 # ------------------------------------------------------------
-# [PASS] Overrun cleared before test=0 time=251012000
-# [PASS] RX FIFO full before overrun byte=1 time=380677000
-# [PASS] Overrun asserted after extra RX byte=1 time=388877000
-# [PASS] RX FIFO post-overrun data=0x40 time=388891000
-# [PASS] RX FIFO post-overrun data=0x41 time=388911000
-# [PASS] RX FIFO post-overrun data=0x42 time=388931000
-# [PASS] RX FIFO post-overrun data=0x43 time=388951000
-# [PASS] RX FIFO post-overrun data=0x44 time=388971000
-# [PASS] RX FIFO post-overrun data=0x45 time=388991000
-# [PASS] RX FIFO post-overrun data=0x46 time=389011000
-# [PASS] RX FIFO post-overrun data=0x47 time=389031000
-# [PASS] RX FIFO post-overrun data=0x48 time=389051000
-# [PASS] RX FIFO post-overrun data=0x49 time=389071000
-# [PASS] RX FIFO post-overrun data=0x4a time=389091000
-# [PASS] RX FIFO post-overrun data=0x4b time=389111000
-# [PASS] RX FIFO post-overrun data=0x4c time=389131000
-# [PASS] RX FIFO post-overrun data=0x4d time=389151000
-# [PASS] RX FIFO post-overrun data=0x4e time=389171000
-# [PASS] RX FIFO post-overrun data=0x4f time=389191000
-# [PASS] RX FIFO empty after post-overrun drain=1 time=389192000
+# [PASS] STATUS.rx_valid after RX bytes=1 time=138841000
+# [PASS] STATUS.rx_fifo_empty after RX bytes=0 time=138841000
+# [PASS] DATA read first RX byte=0xa5 time=138881000
+# [PASS] DATA read second RX byte=0x3c time=138921000
+# [PASS] STATUS.rx_fifo_empty after RX reads=1 time=138941000
+# ------------------------------------------------------------
+# Frame error and clear_errors test
+# ------------------------------------------------------------
+# [PASS] STATUS.frame_error after bad stop bit=1 time=148041000
+# [PASS] STATUS.overrun_error clear check=0 time=148181000
 # ============================================================
-# [PHASE 3B PASS] TX/RX FIFO buffering and RX overrun verified.
+# [PHASE 4 PASS] Register-controlled UART top-level verified.
 # ============================================================
-# ** Note: $finish    : ../../tb/tb_uart_fifo_subsystem.sv(351)
-#    Time: 389192 ns  Iteration: 0  Instance: /tb_uart_fifo_subsystem
+# ** Note: $finish    : ../../tb/tb_uart_top.sv(319)
+#    Time: 148181 ns  Iteration: 0  Instance: /tb_uart_top
 # 1
-# Break in Module tb_uart_fifo_subsystem at ../../tb/tb_uart_fifo_subsystem.sv line 351
+# Break in Module tb_uart_top at ../../tb/tb_uart_top.sv line 319
 # ../logs/run.log
 # ============================================================
 # SIMULATION DONE

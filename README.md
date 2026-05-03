@@ -159,3 +159,31 @@ Result:
 
 ```text
 [PHASE 3B PASS] TX/RX FIFO buffering and RX overrun verified.
+
+### Phase 4 — Register-Controlled UART Top-Level Integration
+
+Integrated the UART FIFO subsystem with a simple memory-mapped register interface.
+
+Implemented registers:
+- `DATA` register for TX FIFO writes and RX FIFO reads
+- `STATUS` register for FIFO, valid, busy, frame error, and overrun flags
+- `CONTROL` register for TX enable, RX enable, loopback enable, and error clear
+- `BAUD_DIV` register for configurable baud divisor
+
+Validated:
+- `DATA` register TX FIFO write behavior
+- `DATA` register RX FIFO read behavior
+- `STATUS` register flag correctness
+- `CONTROL` register enable behavior
+- `BAUD_DIV` write/read behavior
+- top-level UART TX FIFO drain
+- top-level UART RX receive and register read path
+- frame error visibility through `STATUS`
+
+Resolved integration issue:
+- Fixed registered FIFO read latency in the memory-mapped `DATA` read path by adding a read-capture state in the register FSM.
+
+Result:
+
+```text
+[PHASE 4 PASS] Register-controlled UART top-level verified.

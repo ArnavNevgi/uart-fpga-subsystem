@@ -10,7 +10,7 @@
 # Modifying modelsim.ini
 # Compiling RTL files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 23:58:58 on May 03,2026
+# Start time: 01:14:43 on May 04,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/rtl.f 
 # -- Compiling package uart_pkg
 # -- Compiling module baud_gen
@@ -24,23 +24,28 @@
 # -- Compiling package uart_fifo_subsystem_sv_unit
 # -- Importing package uart_pkg
 # -- Compiling module uart_fifo_subsystem
+# -- Compiling package uart_regs_sv_unit
+# -- Importing package uart_pkg
+# -- Compiling module uart_regs
+# -- Compiling package uart_top_sv_unit
+# -- Importing package uart_pkg
+# -- Compiling module uart_top
 # 
 # Top level modules:
-# 	baud_gen
-# 	uart_fifo_subsystem
-# End time: 23:58:58 on May 03,2026, Elapsed time: 0:00:00
+# 	uart_top
+# End time: 01:14:43 on May 04,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Compiling TB files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 23:58:59 on May 03,2026
+# Start time: 01:14:44 on May 04,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/tb.f 
-# -- Compiling package tb_uart_fifo_subsystem_sv_unit
+# -- Compiling package tb_uart_top_sv_unit
 # -- Importing package uart_pkg
-# -- Compiling module tb_uart_fifo_subsystem
+# -- Compiling module tb_uart_top
 # 
 # Top level modules:
-# 	tb_uart_fifo_subsystem
-# End time: 23:58:59 on May 03,2026, Elapsed time: 0:00:00
+# 	tb_uart_top
+# End time: 01:14:44 on May 04,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Compilation completed.
 # Check ../logs/compile.log for full transcript.

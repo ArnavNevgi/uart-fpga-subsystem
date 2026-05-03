@@ -9,31 +9,21 @@ z2
 cModel Technology
 Z0 dC:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa
 T_opt
-!s110 1777832476
-VCSK7gf[6T^l?ggTQTGS4N2
-04 12 4 work tb_sync_fifo fast 0
-=1-8c8b5b3d5d13-69f7921c-d1-e02c
-Z1 o-quiet -auto_acc_if_foreign -work work +acc
-Z2 tCvgOpt 0
+!s110 1777837494
+VFAU^KdCz9I<RD[bY[XT4i3
+04 11 4 work tb_uart_top fast 0
+=1-8c8b5b3d5d13-69f7a5b5-28b-ef98
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
 n@_opt
-Z3 OL;O;10.7c;67
-R0
-T_opt1
-!s110 1777832950
-VMA6;K29Ji<@a`2FmjVRBU3
-04 22 4 work tb_uart_fifo_subsystem fast 0
-=1-8c8b5b3d5d13-69f793f5-2db-b5a8
-R1
-R2
-n@_opt1
-R3
+OL;O;10.7c;67
 vbaud_gen
-Z4 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
-Z5 !s110 1777832938
+Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
+Z3 !s110 1777837483
 !i10b 1
 !s100 JN[?TUSFeC8A?o;VP3YL63
 IC@P>eDHeo<NOe^1@@MTO=2
-Z6 VDg1SIo80bB@j0V0VzS_@n1
+Z4 VDg1SIo80bB@j0V0VzS_@n1
 !s105 baud_gen_sv_unit
 S1
 R0
@@ -41,24 +31,24 @@ w1777829370
 8../../rtl/baud_gen.sv
 F../../rtl/baud_gen.sv
 L0 1
-Z7 OL;L;10.7c;67
+Z5 OL;L;10.7c;67
 r1
 !s85 0
 31
-Z8 !s108 1777832938.000000
-Z9 !s107 ../../rtl/uart_fifo_subsystem.sv|../../rtl/sync_fifo.sv|../../rtl/uart_rx.sv|../../rtl/uart_tx.sv|../../rtl/baud_gen.sv|../../rtl/uart_pkg.sv|
-Z10 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/rtl.f|
+Z6 !s108 1777837483.000000
+Z7 !s107 ../../rtl/uart_top.sv|../../rtl/uart_regs.sv|../../rtl/uart_fifo_subsystem.sv|../../rtl/sync_fifo.sv|../../rtl/uart_rx.sv|../../rtl/uart_tx.sv|../../rtl/baud_gen.sv|../../rtl/uart_pkg.sv|
+Z8 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/rtl.f|
 !i113 0
-Z11 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-Z12 !s92 -sv -work work +incdir+../../rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
-R2
+Z9 o-sv -work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z10 !s92 -sv -work work +incdir+../../rtl -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
 vsync_fifo
-R4
-R5
+R2
+R3
 !i10b 1
 !s100 YToaF1OA8PeiVi8H1OMU:0
 I[_hX=[99DNg1enT^e71I61
-R6
+R4
 !s105 sync_fifo_sv_unit
 S1
 R0
@@ -66,73 +56,73 @@ w1777832044
 8../../rtl/sync_fifo.sv
 F../../rtl/sync_fifo.sv
 L0 3
-R7
+R5
 r1
 !s85 0
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
+R1
+vtb_uart_top
 R2
-vtb_uart_fifo_subsystem
+Z11 DXx4 work 8 uart_pkg 0 22 h]VVEkHR^N9jOcdQzH^G73
+DXx4 work 19 tb_uart_top_sv_unit 0 22 EKeG@e4gnJKn^:;25T0Mh0
 R4
-Z13 DXx4 work 8 uart_pkg 0 22 h]VVEkHR^N9jOcdQzH^G73
-DXx4 work 30 tb_uart_fifo_subsystem_sv_unit 0 22 J5i45m5LEjTSM`jb5PVSC1
-R6
 r1
 !s85 0
 !i10b 1
-!s100 Nlbim]LLl6W`;b45f8lOn0
-I`fjdbh[hBk3bjLiFJX0cD3
-!s105 tb_uart_fifo_subsystem_sv_unit
+!s100 <HBYMnGDNI0cZ[;`OVc@:3
+I>B:W<0U@<=n`4d3[_0bZV3
+!s105 tb_uart_top_sv_unit
 S1
 R0
-Z14 w1777832889
-Z15 8../../tb/tb_uart_fifo_subsystem.sv
-Z16 F../../tb/tb_uart_fifo_subsystem.sv
+Z12 w1777834201
+Z13 8../../tb/tb_uart_top.sv
+Z14 F../../tb/tb_uart_top.sv
 L0 5
-R7
+R5
 31
-Z17 !s108 1777832939.000000
-Z18 !s107 ../../tb/tb_uart_fifo_subsystem.sv|
-Z19 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/tb.f|
+Z15 !s108 1777837484.000000
+Z16 !s107 ../../tb/tb_uart_top.sv|
+Z17 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/tb.f|
 !i113 0
-R11
-Z20 !s92 -sv -work work +incdir+../../rtl +incdir+../../tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R9
+Z18 !s92 -sv -work work +incdir+../../rtl +incdir+../../tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+Xtb_uart_top_sv_unit
 R2
-Xtb_uart_fifo_subsystem_sv_unit
-R4
-R13
-VJ5i45m5LEjTSM`jb5PVSC1
+R11
+VEKeG@e4gnJKn^:;25T0Mh0
 r1
 !s85 0
 !i10b 1
-!s100 o^QeL0oJhZ]<DOhS^Ig?41
-IJ5i45m5LEjTSM`jb5PVSC1
+!s100 YM;c3cZQR`CNfF1hPR=DD0
+IEKeG@e4gnJKn^:;25T0Mh0
 !i103 1
 S1
 R0
+R12
+R13
 R14
+L0 3
+R5
+31
 R15
 R16
-L0 3
-R7
-31
 R17
-R18
-R19
 !i113 0
-R11
-R20
-R2
+R9
+R18
+R1
 vuart_fifo_subsystem
-R4
-R13
+R2
+R11
 DXx4 work 27 uart_fifo_subsystem_sv_unit 0 22 ^:cjGU5lNHQDXaRT^AMZl2
-R6
+R4
 r1
 !s85 0
 !i10b 1
@@ -141,22 +131,22 @@ IYZM74FLC@D?RkHibhSoR53
 !s105 uart_fifo_subsystem_sv_unit
 S1
 R0
-Z21 w1777832872
-Z22 8../../rtl/uart_fifo_subsystem.sv
-Z23 F../../rtl/uart_fifo_subsystem.sv
+Z19 w1777832872
+Z20 8../../rtl/uart_fifo_subsystem.sv
+Z21 F../../rtl/uart_fifo_subsystem.sv
 L0 5
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
-R2
+R1
 Xuart_fifo_subsystem_sv_unit
-R4
-R13
+R2
+R11
 V^:cjGU5lNHQDXaRT^AMZl2
 r1
 !s85 0
@@ -166,22 +156,22 @@ I^:cjGU5lNHQDXaRT^AMZl2
 !i103 1
 S1
 R0
+R19
+R20
 R21
-R22
-R23
 L0 3
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
-R2
+R1
 Xuart_pkg
-R4
-R5
+R2
+R3
 !i10b 1
 !s100 O@zM]GIA03NXJlAhM:5Y13
 Ih]VVEkHR^N9jOcdQzH^G73
@@ -192,22 +182,73 @@ w1777827608
 8../../rtl/uart_pkg.sv
 F../../rtl/uart_pkg.sv
 L0 1
-R7
+R5
 r1
 !s85 0
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
+R1
+vuart_regs
 R2
-vuart_rx
+R11
+DXx4 work 17 uart_regs_sv_unit 0 22 h@zPTLo;Fh^@XWn30oOLV2
 R4
-R13
-DXx4 work 15 uart_rx_sv_unit 0 22 ;^:Q`@jP7=NdVf^7DmfTe3
+r1
+!s85 0
+!i10b 1
+!s100 Tf=Y:P>LRZzU]`D1FUIEz3
+IG<zzj>Xi:?j7^CP6;cTO42
+!s105 uart_regs_sv_unit
+S1
+R0
+Z22 w1777837464
+Z23 8../../rtl/uart_regs.sv
+Z24 F../../rtl/uart_regs.sv
+L0 5
+R5
+31
 R6
+R7
+R8
+!i113 0
+R9
+R10
+R1
+Xuart_regs_sv_unit
+R2
+R11
+Vh@zPTLo;Fh^@XWn30oOLV2
+r1
+!s85 0
+!i10b 1
+!s100 6oN>f?lnliz9?KHE3U:6]2
+Ih@zPTLo;Fh^@XWn30oOLV2
+!i103 1
+S1
+R0
+R22
+R23
+R24
+L0 3
+R5
+31
+R6
+R7
+R8
+!i113 0
+R9
+R10
+R1
+vuart_rx
+R2
+R11
+DXx4 work 15 uart_rx_sv_unit 0 22 ;^:Q`@jP7=NdVf^7DmfTe3
+R4
 r1
 !s85 0
 !i10b 1
@@ -216,22 +257,22 @@ IzGThY5=CFX53nNkWVHW_?3
 !s105 uart_rx_sv_unit
 S1
 R0
-Z24 w1777831423
-Z25 8../../rtl/uart_rx.sv
-Z26 F../../rtl/uart_rx.sv
+Z25 w1777831423
+Z26 8../../rtl/uart_rx.sv
+Z27 F../../rtl/uart_rx.sv
 L0 5
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
-R2
+R1
 Xuart_rx_sv_unit
-R4
-R13
+R2
+R11
 V;^:Q`@jP7=NdVf^7DmfTe3
 r1
 !s85 0
@@ -241,24 +282,75 @@ I;^:Q`@jP7=NdVf^7DmfTe3
 !i103 1
 S1
 R0
-R24
 R25
 R26
+R27
 L0 3
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
+R1
+vuart_top
 R2
-vuart_tx
+R11
+DXx4 work 16 uart_top_sv_unit 0 22 @^E2z>Fo6ZA19`i`K0FJl2
 R4
-R13
-DXx4 work 15 uart_tx_sv_unit 0 22 22j>GQSKmX2bz;Dn03G9c0
+r1
+!s85 0
+!i10b 1
+!s100 :^F[ga0I7O0VUAEaodiYE0
+IVNc[He^Qc8HbJKF8YZD^U2
+!s105 uart_top_sv_unit
+S1
+R0
+Z28 w1777834189
+Z29 8../../rtl/uart_top.sv
+Z30 F../../rtl/uart_top.sv
+L0 5
+R5
+31
 R6
+R7
+R8
+!i113 0
+R9
+R10
+R1
+Xuart_top_sv_unit
+R2
+R11
+V@^E2z>Fo6ZA19`i`K0FJl2
+r1
+!s85 0
+!i10b 1
+!s100 _eNilF9CFU6AKN3O^685@3
+I@^E2z>Fo6ZA19`i`K0FJl2
+!i103 1
+S1
+R0
+R28
+R29
+R30
+L0 3
+R5
+31
+R6
+R7
+R8
+!i113 0
+R9
+R10
+R1
+vuart_tx
+R2
+R11
+DXx4 work 15 uart_tx_sv_unit 0 22 22j>GQSKmX2bz;Dn03G9c0
+R4
 r1
 !s85 0
 !i10b 1
@@ -267,22 +359,22 @@ I;<jEj?F4>kQ:@W4khdX2M0
 !s105 uart_tx_sv_unit
 S1
 R0
-Z27 w1777829379
-Z28 8../../rtl/uart_tx.sv
-Z29 F../../rtl/uart_tx.sv
+Z31 w1777829379
+Z32 8../../rtl/uart_tx.sv
+Z33 F../../rtl/uart_tx.sv
 L0 5
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
-R2
+R1
 Xuart_tx_sv_unit
-R4
-R13
+R2
+R11
 V22j>GQSKmX2bz;Dn03G9c0
 r1
 !s85 0
@@ -292,16 +384,16 @@ I22j>GQSKmX2bz;Dn03G9c0
 !i103 1
 S1
 R0
-R27
-R28
-R29
+R31
+R32
+R33
 L0 3
-R7
+R5
 31
+R6
+R7
 R8
+!i113 0
 R9
 R10
-!i113 0
-R11
-R12
-R2
+R1
