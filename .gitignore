@@ -1,0 +1,68 @@
+# ============================================================
+# Questa / ModelSim generated files
+# ============================================================
+work/
+transcript
+vsim.wlf
+*.wlf
+*.vcd
+*.ucdb
+modelsim.ini
+vish_stacktrace.vstf
+
+# Simulation logs
+sim/logs/*.log
+sim/logs/transcript
+
+# ============================================================
+# Vivado generated files
+# ============================================================
+*.jou
+*.log
+*.str
+*.dcp
+*.bit
+*.bin
+*.ltx
+*.hw
+*.runs/
+*.cache/
+*.sim/
+*.ip_user_files/
+*.xpr
+*.os/
+.Xil/
+
+# Vivado generated project/build output
+fpga/build/
+fpga/vivado/dfx_runtime.txt
+
+# External Vivado build directory if accidentally copied into repo
+vivado_uart_build/
+uart_fpga_subsystem.cache/
+uart_fpga_subsystem.runs/
+uart_fpga_subsystem.hw/
+uart_fpga_subsystem.sim/
+uart_fpga_subsystem.ip_user_files/
+
+# ============================================================
+# Backup / temporary files
+# ============================================================
+*.bak
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ============================================================
+# VS Code local settings
+# ============================================================
+.vscode/
+
+# ============================================================
+# Python cache, if any helper scripts are added later
+# ============================================================
+__pycache__/
+*.pyc

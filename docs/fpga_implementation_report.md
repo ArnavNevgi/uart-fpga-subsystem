@@ -1,66 +1,63 @@
-# FPGA Implementation Report
+# Phase 8 FPGA Implementation Report
 
-## Phase 8A Verdict
+## Overview
 
-**[PHASE 8A PASS] Vivado synthesis/implementation reports generated; board-specific pin constraints pending.**
+[PHASE 8A PASS] Vivado synthesis/implementation, timing, utilization, and routing reports generated; board-specific pin constraints pending.
 
-The UART subsystem was synthesized, placed, routed, and analyzed in Vivado for the Xilinx Artix-7 `xc7a35tcpg236-1` target. The routed implementation meets the 100 MHz timing constraint with positive setup and hold slack.
-
-This is not yet a board-ready bitstream result. The current constraints include the 100 MHz clock but do not assign board-specific package pins, I/O standards, `CFGBVS`, or `CONFIG_VOLTAGE`.
+The UART subsystem was implemented in Vivado for the Xilinx Artix-7 `xc7a35tcpg236-1` target. The design synthesized, placed, routed, and met the 100 MHz timing target. The generated reports confirm that timing and routing passed, while board-clean bitstream generation is still pending board-level pin constraints.
 
 ## Target
 
-| Item | Result |
-|---|---:|
-| Tool | Vivado 2025.2 |
-| Device | `xc7a35tcpg236-1` |
-| Top module | `uart_top` |
-| Design state | Routed / Fully Routed |
-| Clock constraint | 100 MHz, 10.000 ns period |
+| Item | Value |
+|------|-------|
+| FPGA | Xilinx Artix-7 `xc7a35tcpg236-1` |
+| Top Module | `uart_top` |
+| Clock | 100 MHz |
+| Clock Period | 10.000 ns |
+| Tool | Vivado |
 
-## Implementation Status
+## Flow Files
 
-| Area | Status | Notes |
-|---|---|---|
-| Synthesis | PASS | Synthesis completed before implementation reports were generated. |
-| Placement/routing | PASS | Route status reports 637/637 routable nets fully routed. |
-| Timing | PASS | WNS = +5.318 ns, TNS = 0.000 ns. |
-| DRC | WARN | Critical warnings are due to missing board pin and I/O-standard constraints. |
-| Bitstream readiness | Pending board constraints | Vivado reports bitstream generation will fail until LOC and IOSTANDARD constraints are added. |
+- `fpga/vivado/constraints.xdc`
+- `fpga/vivado/create_project.tcl`
+- `fpga/vivado/run_synth.tcl`
+- `fpga/vivado/run_impl.tcl`
 
-## Key Metrics
+## Generated Reports
 
-| Metric | Used | Available | Utilization |
-|---|---:|---:|---:|
-| Slice LUTs | 234 | 20,800 | 1.13% |
-| Slice registers | 489 | 41,600 | 1.18% |
-| Slices | 136 | 8,150 | 1.67% |
-| Block RAM tiles | 0 | 50 | 0.00% |
-| DSPs | 0 | 90 | 0.00% |
-| Bonded IOBs | 75 | 106 | 70.75% |
-| BUFGCTRL | 1 | 32 | 3.13% |
-
-The logic footprint is very small for the Artix-7 35T device. The high I/O percentage comes from exposing the full 32-bit register bus at the FPGA top level. For a board-level design, this interface should normally be wrapped with a board-specific bus bridge or assigned to real pins only where appropriate.
+- `fpga/reports/phase8_impl_utilization.rpt`
+- `fpga/reports/phase8_impl_timing_summary.rpt`
+- `fpga/reports/phase8_route_status.rpt`
+- `fpga/reports/phase8_drc.rpt`
 
 ## Timing Summary
 
-| Metric | Result |
-|---|---:|
+| Metric | Value |
+|--------|------:|
 | WNS | +5.318 ns |
 | TNS | 0.000 ns |
 | WHS | +0.154 ns |
 | THS | 0.000 ns |
-| Failing setup endpoints | 0 |
-| Failing hold endpoints | 0 |
+| 100 MHz Timing | PASS |
 
-Vivado reports: **All user specified timing constraints are met.**
+Vivado reports that all user-specified timing constraints are met. Setup timing and hold timing both pass for the routed 100 MHz implementation.
 
-The worst setup path is inside the baud generator/control path from `u_os_baud_gen/count_reg[1]` to `u_os_baud_gen/baud_tick_reg`. The path has 4.367 ns data path delay and still has +5.318 ns slack against the 10 ns clock.
+## Utilization Summary
+
+| Resource | Used | Available | Utilization |
+|----------|-----:|----------:|------------:|
+| LUTs | 234 | 20,800 | 1.13% |
+| FFs / Registers | 489 | 41,600 | 1.18% |
+| BRAM | 0 | 50 | 0.00% |
+| DSP | 0 | 90 | 0.00% |
+| IO | 75 | 106 | 70.75% |
+
+The logic footprint is very small for the Artix-7 35T device. IO utilization is high because the current top-level exposes the parallel register interface directly.
 
 ## Route Status
 
 | Route Metric | Count |
-|---|---:|
+|--------------|------:|
 | Logical nets | 949 |
 | Nets not needing routing | 312 |
 | Routable nets | 637 |
@@ -71,20 +68,24 @@ Routing completed cleanly.
 
 ## DRC Status
 
-Vivado found three DRC checks:
+| Rule | Severity | Status |
+|------|----------|--------|
+| NSTD-1 | Critical Warning | Missing explicit `IOSTANDARD` constraints on top-level ports |
+| UCIO-1 | Critical Warning | Missing package pin `LOC` constraints on top-level ports |
+| CFGBVS-1 | Warning | Missing `CFGBVS` and `CONFIG_VOLTAGE` design properties |
 
-| Rule | Severity | Meaning |
-|---|---|---|
-| NSTD-1 | Critical Warning | All 75 logical ports use default I/O standard. |
-| UCIO-1 | Critical Warning | All 75 logical ports lack package pin LOC constraints. |
-| CFGBVS-1 | Warning | Configuration bank voltage properties are not set. |
+The DRC result is expected for the current subsystem implementation stage. The design is timing-clean and route-clean, but it is not yet board-clean because board-specific `LOC` and `IOSTANDARD` constraints are pending.
 
-These are expected for the current IP-style implementation stage because the exact board pinout has not been added yet. They must be resolved before creating a board-ready bitstream.
+## Post-Implementation Screenshot
 
-## Next Steps
+Post-implementation device view:
 
-1. Choose the target Artix-7 board and board connector mapping.
-2. Add `PACKAGE_PIN` and `IOSTANDARD` constraints for `clk`, `rst_n`, UART pins, and any exposed register interface pins.
-3. Add `CFGBVS` and `CONFIG_VOLTAGE` properties appropriate for the board.
-4. Re-run implementation and DRC.
-5. Generate a final board-ready bitstream only after DRC is clean.
+`docs/vivado/phase8_device_view.png`
+
+## Known Limitation
+
+Board-specific `LOC` and `IOSTANDARD` constraints are pending. Because of this, the implementation reports are valid for synthesis, timing, utilization, and routing analysis, but a board-clean bitstream is pending board-level pin constraints.
+
+## Status
+
+Timing and routing passed. Board-clean bitstream generation is pending board-level pin constraints.
