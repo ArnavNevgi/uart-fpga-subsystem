@@ -2,291 +2,75 @@
 
 ## Overview
 
-This project implements an FPGA-targeted UART communication subsystem in SystemVerilog.
-
-The design is built as a small reusable FPGA IP block, not as a minimal UART example. It includes configurable baud generation, UART TX/RX logic, 16x RX oversampling, TX/RX FIFO buffering, a simple memory-mapped register interface, loopback mode, frame error detection, overrun detection, self-checking verification, and Vivado implementation evidence.
-
----
+This project implements a reusable FPGA UART communication subsystem in SystemVerilog. It includes UART transmit/receive logic, 16x RX oversampling, TX/RX FIFOs, a memory-mapped register interface, internal loopback mode, frame/overrun error handling, assertions, functional coverage, randomized verification, and Vivado implementation evidence.
 
 ## Target
 
 | Item | Value |
-|------|-------|
-| FPGA | Xilinx Artix-7 xc7a35tcpg236-1 |
-| Tool | Vivado |
-| Simulation | QuestaSim / ModelSim |
+|---|---|
+| FPGA | Xilinx Artix-7 `xc7a35tcpg236-1` |
 | Clock | 100 MHz |
-| UART Format | 8N1 |
-| Baud Rates | 9600, 115200 |
-| Language | SystemVerilog |
-
----
+| UART format | 8N1 |
+| Top module | `uart_top` |
+| HDL | SystemVerilog |
+| Simulation | QuestaSim / ModelSim |
+| Implementation | Vivado |
 
 ## Features
 
-- UART transmitter
-- UART receiver
+- UART transmitter and receiver
 - 16x RX oversampling
 - Configurable baud divisor
-- TX FIFO
-- RX FIFO
-- DATA register
-- STATUS register
-- CONTROL register
-- BAUD_DIV register
+- TX and RX FIFO buffering
+- Memory-mapped `DATA`, `STATUS`, `CONTROL`, and `BAUD_DIV` registers
 - Internal loopback mode
-- Frame error detection
-- RX overrun detection
-- Self-checking SystemVerilog testbench
-- Assertions
-- Functional coverage
-- Vivado synthesis and implementation flow
+- Frame error and RX overrun detection
+- Self-checking directed and randomized testbenches
+- Protocol assertions and functional coverage
+- Vivado synthesis, implementation, timing, utilization, route, and DRC reports
 
----
+## Register Map
 
-## Architecture
+| Address | Register | Description |
+|---:|---|---|
+| `0x00` | `DATA` | TX FIFO write / RX FIFO read |
+| `0x04` | `STATUS` | FIFO, busy, valid, and error flags |
+| `0x08` | `CONTROL` | TX/RX enable, loopback enable, clear errors |
+| `0x0C` | `BAUD_DIV` | Baud divisor configuration |
 
-```text
-Host register interface
-        |
-        v
- UART register block
-        |
-        +------> Baud generator
-        |
-        +------> TX FIFO ---> UART TX FSM ---> uart_tx_o
-        |
-        +------> RX FIFO <--- UART RX FSM <--- uart_rx_i
-        |
-        +------> Status/control/error logic
-        |
-        +------> Internal loopback mux
+## Project Phases
 
-Register Map
+| Phase | Description | Status |
+|---:|---|---|
+| 0 | Project setup, docs, register map, verification plan | Complete |
+| 1 | Baud generator and UART TX | Complete |
+| 2 | UART RX with 16x oversampling | Complete |
+| 3A | Standalone synchronous FIFO | Complete |
+| 3B | TX/RX FIFO subsystem integration | Complete |
+| 4 | Register interface and top-level integration | Complete |
+| 5 | Internal loopback mode | Complete |
+| 6 | Assertions and functional coverage | Complete |
+| 7 | Randomized verification | Complete |
+| 8A | Vivado synthesis/implementation reports | Complete, board constraints pending |
+| 9 | GitHub polish and resume documentation | Not started |
 
-Address	Register	Description
-0x00	DATA	    TX write / RX read
-0x04	STATUS	    Status and error flags
-0x08	CONTROL	    Enable, loopback, clear errors
-0x0C	BAUD_DIV	Baud divisor configuration
+## Verification Summary
 
+Directed and randomized verification cover:
 
-Project Phases
-
-| Phase | Description                                                   | Status      |
-| ----: | ------------------------------------------------------------- | ----------- |
-|     0 | Project setup, specification, register map, verification plan | Complete    |
-|     1 | Baud generator and UART TX                                    | Complete    |
-|     2 | UART RX with 16x oversampling                                 | Complete    |
-|     3A| Standalone synchronous FIFO design and verification           | Complete    |
-|     3B| TX/RX FIFO integration and overrun verification               | Complete    |
-|     4 | Register interface and top-level integration                  | Complete    |
-|     5 | Internal loopback mode                                        | Complete    |
-|     6 | Assertions and functional coverage                            | Complete    |
-|     7 | Randomized verification                                       | Not started |
-|     8 | Vivado synthesis, implementation, timing, utilization         | Not started |
-|     9 | GitHub polish and resume documentation                        | Not started |
-
-
-## Phase 1 Simulation Result
-
-The UART transmitter was verified using a self-checking SystemVerilog testbench.
-
-Validated behavior:
-
-- TX idle line remains high after reset
-- Start bit is transmitted low
-- 8 data bits are transmitted LSB-first
-- Stop bit is transmitted high
-- `tx_busy` asserts during frame transmission
-- `tx_done` asserts after frame completion
-- Multiple byte values were verified: `0xA5`, `0x3C`, `0x00`, `0xFF`
-
-Result:
-
-```text
-[PHASE 1 PASS] UART transmitter verified.
-
-Phase 2 — UART RX with 16x Oversampling
-
-Verified UART receiver behavior using oversampled UART stimulus.
-
-Validated:
-
-start-bit detection
-16x oversampling timing
-LSB-first byte reconstruction
-valid-frame receive
-invalid stop-bit frame error
-back-to-back receive sequence
-
-Result:
-
-[PHASE 2 PASS] UART receiver with 16x oversampling verified.
-
-Phase 3A — Standalone Synchronous FIFO
-
-Implemented and verified a parameterized synchronous FIFO for use in the UART TX and RX buffering paths.
-
-Validated:
-
-write until full
-read until empty
-FIFO full and empty flags
-data ordering across fill/drain sequence
-blocked overflow write
-blocked underflow read
-simultaneous read/write behavior
-
-Result:
-
-[PHASE 3A PASS] Standalone synchronous FIFO verified.
-
-### Phase 3B — TX/RX FIFO Buffering Integration
-
-Integrated the parameterized synchronous FIFO into the UART subsystem as separate TX and RX buffers.
-
-Validated:
-- TX FIFO write until full
-- TX FIFO full and empty flags
-- TX FIFO drain through UART TX path
-- RX FIFO fill from UART RX back-to-back received bytes
-- RX FIFO read until empty
-- RX FIFO data ordering
-- RX overrun detection when a valid byte arrives while RX FIFO is full
-
-Result:
-
-```text
-[PHASE 3B PASS] TX/RX FIFO buffering and RX overrun verified.
-
-### Phase 4 — Register-Controlled UART Top-Level Integration
-
-Integrated the UART FIFO subsystem with a simple memory-mapped register interface.
-
-Implemented registers:
-- `DATA` register for TX FIFO writes and RX FIFO reads
-- `STATUS` register for FIFO, valid, busy, frame error, and overrun flags
-- `CONTROL` register for TX enable, RX enable, loopback enable, and error clear
-- `BAUD_DIV` register for configurable baud divisor
-
-Validated:
-- `DATA` register TX FIFO write behavior
-- `DATA` register RX FIFO read behavior
-- `STATUS` register flag correctness
-- `CONTROL` register enable behavior
-- `BAUD_DIV` write/read behavior
-- top-level UART TX FIFO drain
-- top-level UART RX receive and register read path
-- frame error visibility through `STATUS`
-
-Resolved integration issue:
-- Fixed registered FIFO read latency in the memory-mapped `DATA` read path by adding a read-capture state in the register FSM.
-
-Result:
-
-```text
-[PHASE 4 PASS] Register-controlled UART top-level verified.
-
-### Phase 5 — Internal Loopback Mode
-
-Verified internal UART loopback mode through the memory-mapped register interface.
-
-Validated:
-- `CONTROL.loopback_enable` register bit
-- internal routing from UART TX output into UART RX input
-- loopback operation without external RX stimulus
-- TX `DATA` register write followed by RX `DATA` register readback
-- multiple-byte loopback sequence
-- negative case where RX FIFO remains empty when loopback is disabled
-
-Resolved:
-- fixed TX FIFO controller latency by adding wait/capture states before launching UART TX
-- fixed registered RX FIFO `DATA` read timing so `bus_ready` asserts only after `bus_rdata` is stable
-- updated testbench bus read timing to sample stable read data after `bus_ready`
-
-Result:
-
-```text
-[PHASE 5 PASS] Internal loopback verified.
-
-### Phase 6 — Assertions and Functional Coverage
-
-Added SystemVerilog assertions and functional coverage for UART protocol behavior, FIFO safety, register-level operation, loopback mode, error handling, and coverage-driven verification.
-
-Implemented assertion checks for:
-- UART TX idle line high when inactive
-- start bit low during frame transmission
-- stop bit high during frame transmission
-- `rx_valid` only after a complete valid frame
-- FIFO full blocking writes
-- FIFO empty blocking reads
-- no unknown `X/Z` values on key outputs after reset
-- `frame_error` assertion on invalid stop bit
-- loopback mux correctness
-- registered bus response behavior
-
-Implemented functional coverage for:
-- TX byte values
-- RX byte values
-- TX/RX FIFO full events
-- TX/RX FIFO empty events
-- frame error event
-- overrun error event
-- loopback enable/disable mode
-- baud divisor bins
-- back-to-back transfer event
-
-Directed coverage hits were added for:
+- TX byte streams
+- RX byte streams
+- loopback packets
+- FIFO full/empty stress
+- baud divisor changes
 - frame error injection
-- TX FIFO full condition
-- RX FIFO full condition
-- RX FIFO overrun condition
-- back-to-back queued loopback transfers
-
-Verification result:
-
-```text
-Questa RTL compile: Errors: 0, Warnings: 0
-Questa TB compile : Errors: 0, Warnings: 0
-
-[PHASE 5 PASS] Internal loopback verified.
-[PHASE 6 PASS] Assertions and functional coverage added.
-
-## Current Implemented Features
-
-- UART transmitter
-- UART receiver with 16x oversampling
-- Configurable baud divisor
-- TX FIFO buffering
-- RX FIFO buffering
-- RX overrun detection
-- Frame error detection
-- Simple memory-mapped register interface
-- DATA, STATUS, CONTROL, and BAUD_DIV registers
-- Internal loopback mode
-- Self-checking SystemVerilog testbenches
-- Protocol and integration assertions
-- Functional coverage
-- QuestaSim simulation scripts
-
-### Phase 7 — Randomized Verification
-
-Added a self-checking randomized verification regression for the integrated UART subsystem.
-
-Verified:
-- random TX byte stream
-- random RX byte stream
-- random loopback packets
-- random FIFO stress
-- random baud divisor selection
-- error injection
+- RX overrun injection
 - back-to-back transfers
-- scoreboard-based pass/fail checking
+- scoreboard checking
 - assertion-clean regression
 - functional coverage reporting
 
-Final simulation summary:
+Phase 7 final summary:
 
 ```text
 ================ UART VERIFICATION SUMMARY ================
@@ -298,7 +82,67 @@ Functional coverage : 72.22%
 ============================================================
 [PHASE 7 PASS] UART subsystem verification complete.
 [PHASE 7 PASS] Self-checking verification complete.
+```
 
 Coverage report:
 
+```text
 sim/logs/phase7_coverage_report.txt
+```
+
+## Phase 8A Vivado Implementation
+
+Vivado implementation reports were generated for the Artix-7 `xc7a35tcpg236-1` target with a 100 MHz clock constraint.
+
+```text
+[PHASE 8A PASS] Vivado synthesis/implementation reports generated; board-specific constraints pending.
+```
+
+Implementation result:
+
+| Result | Status |
+|---|---|
+| Synthesis | PASS |
+| Implementation routing | PASS |
+| Timing | PASS |
+| DRC | WARN |
+| Bitstream-ready | Pending board pin constraints |
+
+Key implementation numbers:
+
+| Metric | Result |
+|---|---:|
+| LUTs | 234 / 20,800 (1.13%) |
+| Flip-flops/registers | 489 / 41,600 (1.18%) |
+| BRAM tiles | 0 / 50 (0.00%) |
+| DSPs | 0 / 90 (0.00%) |
+| IOBs | 75 / 106 (70.75%) |
+| WNS | +5.318 ns |
+| TNS | 0.000 ns |
+| WHS | +0.154 ns |
+| THS | 0.000 ns |
+
+Timing is met at 100 MHz. DRC reports critical warnings for missing `PACKAGE_PIN`/`IOSTANDARD` assignments and a warning for missing `CFGBVS`/`CONFIG_VOLTAGE`. These are expected at this IP-style implementation stage and must be resolved before generating a board-ready bitstream.
+
+## Vivado Reports
+
+- `fpga/reports/phase8_impl_utilization.rpt`
+- `fpga/reports/phase8_impl_timing_summary.rpt`
+- `fpga/reports/phase8_route_status.rpt`
+- `fpga/reports/phase8_drc.rpt`
+
+## Documentation
+
+- `docs/architecture.md`
+- `docs/register_map.md`
+- `docs/verification_plan.md`
+- `docs/fpga_implementation_report.md`
+- `docs/timing_summary.md`
+- `docs/utilization_summary.md`
+
+## Next Steps
+
+- Add board-specific package pin and I/O-standard constraints.
+- Add `CFGBVS` and `CONFIG_VOLTAGE` properties for the selected board.
+- Re-run implementation and DRC.
+- Generate a final bitstream only after board-level constraints are complete.
