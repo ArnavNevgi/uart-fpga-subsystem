@@ -10,17 +10,17 @@ z2
 cModel Technology
 Z0 dC:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa
 T_opt1
-!s110 1777839106
-V`bTEeHHibzOYdFgGjidkg1
+!s110 1777841189
+VoJTWfPM@;L?d54M48]99h2
 04 16 4 work tb_uart_loopback fast 0
-=1-8c8b5b3d5d13-69f7ac02-b7-d930
+=1-8c8b5b3d5d13-69f7b424-232-10358
 o-quiet -auto_acc_if_foreign -work work +acc
 Z1 tCvgOpt 0
 n@_opt1
 OL;O;10.7c;67
 vbaud_gen
 Z2 DXx6 sv_std 3 std 0 22 d=_JfHTnXCN[H5FjiaJJc0
-Z3 !s110 1777839095
+Z3 !s110 1777841179
 !i10b 1
 !s100 JN[?TUSFeC8A?o;VP3YL63
 IC@P>eDHeo<NOe^1@@MTO=2
@@ -36,7 +36,7 @@ Z5 OL;L;10.7c;67
 r1
 !s85 0
 31
-Z6 !s108 1777839095.000000
+Z6 !s108 1777841179.000000
 Z7 !s107 ../../rtl/uart_top.sv|../../rtl/uart_regs.sv|../../rtl/uart_fifo_subsystem.sv|../../rtl/sync_fifo.sv|../../rtl/uart_rx.sv|../../rtl/uart_tx.sv|../../rtl/baud_gen.sv|../../rtl/uart_pkg.sv|
 Z8 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/rtl.f|
 !i113 0
@@ -76,23 +76,23 @@ R4
 r1
 !s85 0
 !i10b 1
-!s100 JBg<?bPZzHO7e5z<@4PCe3
-IQolkA5MA=YjD5YzbC0]8?1
+!s100 XS2=PahD>:HLO>@^3>4ba0
+I@DAd8=i_L_ilMGcU2ZCmQ1
 !s105 tb_uart_loopback_sv_unit
 S1
 R0
-Z12 w1777838555
+Z12 w1777841056
 Z13 8../../tb/tb_uart_loopback.sv
 Z14 F../../tb/tb_uart_loopback.sv
 L0 5
 R5
 31
-R6
-Z15 !s107 ../../tb/tb_uart_loopback.sv|../../tb/tb_uart_top.sv|
-Z16 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/tb.f|
+Z15 !s108 1777841180.000000
+Z16 !s107 ../../tb/tb_uart_loopback.sv|../../tb/tb_uart_top.sv|../../tb/uart_coverage.sv|../../tb/uart_assertions.sv|
+Z17 !s90 -reportprogress|300|-sv|-work|work|-f|../../filelists/tb.f|
 !i113 0
 R9
-Z17 !s92 -sv -work work +incdir+../../rtl +incdir+../../tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z18 !s92 -sv -work work +incdir+../../rtl +incdir+../../tb -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R1
 Xtb_uart_loopback_sv_unit
 R2
@@ -112,17 +112,17 @@ R14
 L0 3
 R5
 31
-R6
 R15
 R16
+R17
 !i113 0
 R9
-R17
+R18
 R1
 vtb_uart_top
 R2
 R11
-DXx4 work 19 tb_uart_top_sv_unit 0 22 RdHnEQUlGUBZQTH]Ak66k0
+DXx4 work 19 tb_uart_top_sv_unit 0 22 A7:WNUk?7Go>=2YkkzElE3
 R4
 r1
 !s85 0
@@ -132,43 +132,93 @@ I[a0eTCoH`^@gz`Ne]?YiB0
 !s105 tb_uart_top_sv_unit
 S1
 R0
-Z18 w1777838502
-Z19 8../../tb/tb_uart_top.sv
-Z20 F../../tb/tb_uart_top.sv
+Z19 w1777838502
+Z20 8../../tb/tb_uart_top.sv
+Z21 F../../tb/tb_uart_top.sv
 L0 5
 R5
 31
-R6
 R15
 R16
+R17
 !i113 0
 R9
-R17
+R18
 R1
 Xtb_uart_top_sv_unit
 R2
 R11
-VRdHnEQUlGUBZQTH]Ak66k0
+VA7:WNUk?7Go>=2YkkzElE3
 r1
 !s85 0
 !i10b 1
-!s100 M4D=leIidKKO`iPaQJX=00
-IRdHnEQUlGUBZQTH]Ak66k0
+!s100 FW]I<TFCNh5=[Uiff_[[T2
+IA7:WNUk?7Go>=2YkkzElE3
 !i103 1
 S1
 R0
-R18
 R19
 R20
+R21
 L0 3
 R5
 31
-R6
 R15
 R16
+R17
 !i113 0
 R9
+R18
+R1
+vuart_assertions
+R2
+Z22 !s110 1777841180
+!i10b 1
+!s100 ic^7LbccMebcRoQIl3njT3
+IReI9ehMXHS=a=2<XaD@U=2
+R4
+!s105 uart_assertions_sv_unit
+S1
+R0
+w1777840475
+8../../tb/uart_assertions.sv
+F../../tb/uart_assertions.sv
+L0 3
+R5
+r1
+!s85 0
+31
+R15
+R16
 R17
+!i113 0
+R9
+R18
+R1
+vuart_coverage
+R2
+R22
+!i10b 1
+!s100 5CIibRRH62Hdkkjm9U6>43
+I1MP5DO[^R9P@d6KYkkobC0
+R4
+!s105 uart_coverage_sv_unit
+S1
+R0
+w1777840482
+8../../tb/uart_coverage.sv
+F../../tb/uart_coverage.sv
+L0 3
+R5
+r1
+!s85 0
+31
+R15
+R16
+R17
+!i113 0
+R9
+R18
 R1
 vuart_fifo_subsystem
 R2
@@ -183,9 +233,9 @@ I`mHTi42Z84AO22[an5Rni1
 !s105 uart_fifo_subsystem_sv_unit
 S1
 R0
-Z21 w1777838510
-Z22 8../../rtl/uart_fifo_subsystem.sv
-Z23 F../../rtl/uart_fifo_subsystem.sv
+Z23 w1777838510
+Z24 8../../rtl/uart_fifo_subsystem.sv
+Z25 F../../rtl/uart_fifo_subsystem.sv
 L0 5
 R5
 31
@@ -208,9 +258,9 @@ Ic[DG5oJV6adeNiCUDm`KI0
 !i103 1
 S1
 R0
-R21
-R22
 R23
+R24
+R25
 L0 3
 R5
 31
@@ -258,9 +308,9 @@ Iml5FhChJ8^EVIaC8Egn=10
 !s105 uart_regs_sv_unit
 S1
 R0
-Z24 w1777838610
-Z25 8../../rtl/uart_regs.sv
-Z26 F../../rtl/uart_regs.sv
+Z26 w1777838610
+Z27 8../../rtl/uart_regs.sv
+Z28 F../../rtl/uart_regs.sv
 L0 5
 R5
 31
@@ -283,9 +333,9 @@ IE5`Q?^DUFzDf_4fBz6PdB0
 !i103 1
 S1
 R0
-R24
-R25
 R26
+R27
+R28
 L0 3
 R5
 31
@@ -309,9 +359,9 @@ IzGThY5=CFX53nNkWVHW_?3
 !s105 uart_rx_sv_unit
 S1
 R0
-Z27 w1777831423
-Z28 8../../rtl/uart_rx.sv
-Z29 F../../rtl/uart_rx.sv
+Z29 w1777831423
+Z30 8../../rtl/uart_rx.sv
+Z31 F../../rtl/uart_rx.sv
 L0 5
 R5
 31
@@ -334,9 +384,9 @@ I;^:Q`@jP7=NdVf^7DmfTe3
 !i103 1
 S1
 R0
-R27
-R28
 R29
+R30
+R31
 L0 3
 R5
 31
@@ -360,9 +410,9 @@ IVNc[He^Qc8HbJKF8YZD^U2
 !s105 uart_top_sv_unit
 S1
 R0
-Z30 w1777834189
-Z31 8../../rtl/uart_top.sv
-Z32 F../../rtl/uart_top.sv
+Z32 w1777834189
+Z33 8../../rtl/uart_top.sv
+Z34 F../../rtl/uart_top.sv
 L0 5
 R5
 31
@@ -385,9 +435,9 @@ I@^E2z>Fo6ZA19`i`K0FJl2
 !i103 1
 S1
 R0
-R30
-R31
 R32
+R33
+R34
 L0 3
 R5
 31
@@ -411,9 +461,9 @@ I;<jEj?F4>kQ:@W4khdX2M0
 !s105 uart_tx_sv_unit
 S1
 R0
-Z33 w1777829379
-Z34 8../../rtl/uart_tx.sv
-Z35 F../../rtl/uart_tx.sv
+Z35 w1777829379
+Z36 8../../rtl/uart_tx.sv
+Z37 F../../rtl/uart_tx.sv
 L0 5
 R5
 31
@@ -436,9 +486,9 @@ I22j>GQSKmX2bz;Dn03G9c0
 !i103 1
 S1
 R0
-R33
-R34
 R35
+R36
+R37
 L0 3
 R5
 31

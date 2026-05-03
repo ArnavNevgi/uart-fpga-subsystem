@@ -209,3 +209,63 @@ Result:
 
 ```text
 [PHASE 5 PASS] Internal loopback verified.
+
+### Phase 6 — Assertions and Functional Coverage
+
+Added SystemVerilog assertions and functional coverage for UART protocol behavior, FIFO safety, register-level operation, loopback mode, error handling, and coverage-driven verification.
+
+Implemented assertion checks for:
+- UART TX idle line high when inactive
+- start bit low during frame transmission
+- stop bit high during frame transmission
+- `rx_valid` only after a complete valid frame
+- FIFO full blocking writes
+- FIFO empty blocking reads
+- no unknown `X/Z` values on key outputs after reset
+- `frame_error` assertion on invalid stop bit
+- loopback mux correctness
+- registered bus response behavior
+
+Implemented functional coverage for:
+- TX byte values
+- RX byte values
+- TX/RX FIFO full events
+- TX/RX FIFO empty events
+- frame error event
+- overrun error event
+- loopback enable/disable mode
+- baud divisor bins
+- back-to-back transfer event
+
+Directed coverage hits were added for:
+- frame error injection
+- TX FIFO full condition
+- RX FIFO full condition
+- RX FIFO overrun condition
+- back-to-back queued loopback transfers
+
+Verification result:
+
+```text
+Questa RTL compile: Errors: 0, Warnings: 0
+Questa TB compile : Errors: 0, Warnings: 0
+
+[PHASE 5 PASS] Internal loopback verified.
+[PHASE 6 PASS] Assertions and functional coverage added.
+
+## Current Implemented Features
+
+- UART transmitter
+- UART receiver with 16x oversampling
+- Configurable baud divisor
+- TX FIFO buffering
+- RX FIFO buffering
+- RX overrun detection
+- Frame error detection
+- Simple memory-mapped register interface
+- DATA, STATUS, CONTROL, and BAUD_DIV registers
+- Internal loopback mode
+- Self-checking SystemVerilog testbenches
+- Protocol and integration assertions
+- Functional coverage
+- QuestaSim simulation scripts

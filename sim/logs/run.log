@@ -1,10 +1,11 @@
-# End time: 01:41:45 on May 04,2026, Elapsed time: 0:15:31
-# Errors: 0, Warnings: 1
-# vsim -voptargs=""+acc"" -wlf ../../docs/waveforms/phase5_internal_loopback.wlf work.tb_uart_loopback 
-# Start time: 01:41:45 on May 04,2026
+# End time: 02:16:27 on May 04,2026, Elapsed time: 0:15:27
+# Errors: 1, Warnings: 2
+# vsim -coverage -voptargs=""+acc"" -wlf ../../docs/waveforms/phase6_assertions_coverage.wlf work.tb_uart_loopback 
+# Start time: 02:16:27 on May 04,2026
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Note: (vopt-143) Recognized 1 FSM in module "uart_regs(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "uart_fifo_subsystem(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
 # Loading sv_std.std
 # Loading work.uart_pkg(fast)
 # Loading work.tb_uart_loopback_sv_unit(fast)
@@ -21,6 +22,9 @@
 # Loading work.uart_tx(fast)
 # Loading work.uart_rx_sv_unit(fast)
 # Loading work.uart_rx(fast)
+# Loading work.uart_assertions(fast)
+# Loading work.uart_coverage(fast)
+# ** Warning: (vsim-8634) Code was not compiled with coverage options.
 # ============================================================
 # PHASE 5 INTERNAL LOOPBACK TEST START
 # ============================================================
@@ -40,31 +44,62 @@
 # Single-byte loopback test
 # ------------------------------------------------------------
 # Sending loopback byte: 0xa5
-# [PASS] STATUS.rx_valid after loopback byte=1 time=8011000
-# [PASS] STATUS.rx_fifo_empty after loopback byte=0 time=8011000
-# [PASS] Loopback DATA read=0xa5 time=8061000
-# [PASS] STATUS.rx_fifo_empty after DATA read=1 time=8081000
+# [PASS] STATUS.rx_valid after loopback byte=1 time=8021000
+# [PASS] STATUS.rx_fifo_empty after loopback byte=0 time=8021000
+# [PASS] Loopback DATA read=0xa5 time=8071000
+# [PASS] STATUS.rx_fifo_empty after DATA read=1 time=8091000
 # ------------------------------------------------------------
 # Multiple-byte loopback test
 # ------------------------------------------------------------
 # Sending loopback byte: 0x3c
 # Sending loopback byte: 0x00
 # Sending loopback byte: 0xff
-# [PASS] STATUS.rx_valid after multiple loopback bytes=1 time=31961000
-# [PASS] STATUS.rx_fifo_empty after multiple loopback bytes=0 time=31961000
-# [PASS] Loopback DATA read byte 1=0x3c time=32011000
-# [PASS] Loopback DATA read byte 2=0x00 time=32061000
-# [PASS] Loopback DATA read byte 3=0xff time=32111000
-# [PASS] STATUS.rx_fifo_empty after all loopback reads=1 time=32131000
+# [PASS] STATUS.rx_valid after multiple loopback bytes=1 time=31981000
+# [PASS] STATUS.rx_fifo_empty after multiple loopback bytes=0 time=31981000
+# [PASS] Loopback DATA read byte 1=0x3c time=32031000
+# [PASS] Loopback DATA read byte 2=0x00 time=32081000
+# [PASS] Loopback DATA read byte 3=0xff time=32131000
+# [PASS] STATUS.rx_fifo_empty after all loopback reads=1 time=32151000
 # ------------------------------------------------------------
 # Loopback disabled negative test
 # ------------------------------------------------------------
-# [PASS] CONTROL.loopback_enable disabled=0 time=32171000
-# [PASS] RX FIFO remains empty when loopback disabled=1 time=32711000
+# [PASS] CONTROL.loopback_enable disabled=0 time=32191000
+# [PASS] RX FIFO remains empty when loopback disabled=1 time=32721000
+# ------------------------------------------------------------
+# External RX frame error coverage test
+# ------------------------------------------------------------
+# [PASS] STATUS.frame_error after external bad stop bit=1 time=41791000
+# ------------------------------------------------------------
+# TX FIFO full coverage test
+# ------------------------------------------------------------
+# [PASS] STATUS.tx_fifo_full after directed fill=1 time=42151000
+# [PASS] STATUS.tx_fifo_empty after directed drain=1 time=162461000
+# ------------------------------------------------------------
+# RX FIFO full and overrun coverage test
+# ------------------------------------------------------------
+# Sending loopback byte: 0x00
+# Sending loopback byte: 0x01
+# Sending loopback byte: 0x02
+# Sending loopback byte: 0x03
+# Sending loopback byte: 0x04
+# Sending loopback byte: 0x05
+# Sending loopback byte: 0x06
+# Sending loopback byte: 0x07
+# Sending loopback byte: 0x08
+# Sending loopback byte: 0x09
+# Sending loopback byte: 0x0a
+# Sending loopback byte: 0x0b
+# Sending loopback byte: 0x0c
+# Sending loopback byte: 0x0d
+# Sending loopback byte: 0x0e
+# Sending loopback byte: 0x0f
+# [PASS] STATUS.rx_fifo_full after directed fill=1 time=289991000
+# [PASS] STATUS.overrun_error after extra RX byte=1 time=297881000
 # ============================================================
 # [PHASE 5 PASS] Internal loopback verified.
+# [PHASE 6 PASS] Assertions and functional coverage added.
 # ============================================================
-# ** Note: $finish    : ../../tb/tb_uart_loopback.sv(284)
-#    Time: 32711 ns  Iteration: 0  Instance: /tb_uart_loopback
+# ** Note: $finish    : ../../tb/tb_uart_loopback.sv(520)
+#    Time: 297881 ns  Iteration: 0  Instance: /tb_uart_loopback
 # 1
-# Break in Module tb_uart_loopback at ../../tb/tb_uart_loopback.sv line 284
+# Break in Module tb_uart_loopback at ../../tb/tb_uart_loopback.sv line 520

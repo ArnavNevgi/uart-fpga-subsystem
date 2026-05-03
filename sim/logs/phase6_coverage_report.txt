@@ -1,0 +1,200 @@
+COVERGROUP COVERAGE:
+-----------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal    Status               
+                                                                                              
+-----------------------------------------------------------------------------------------------
+ TYPE /tb_uart_loopback/u_uart_coverage/uart_cg        72.22%        100    Uncovered            
+    covered/total bins:                                    11         40                      
+    missing/total bins:                                    29         40                      
+    % Hit:                                             27.50%        100                      
+    Coverpoint uart_cg::cp_tx_byte                      0.00%        100    ZERO                 
+        covered/total bins:                                 0          7                      
+        missing/total bins:                                 7          7                      
+        % Hit:                                          0.00%        100                      
+    Coverpoint uart_cg::cp_rx_byte                      0.00%        100    ZERO                 
+        covered/total bins:                                 0          7                      
+        missing/total bins:                                 7          7                      
+        % Hit:                                          0.00%        100                      
+    Coverpoint uart_cg::cp_tx_fifo_full               100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_tx_fifo_empty              100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_rx_fifo_full               100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_rx_fifo_empty              100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_frame_error                100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_overrun_error              100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_loopback                   100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_back_to_back               100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+    Coverpoint uart_cg::cp_baud_div                    66.66%        100    Uncovered            
+        covered/total bins:                                 2          3                      
+        missing/total bins:                                 1          3                      
+        % Hit:                                         66.66%        100                      
+    Cross uart_cg::cross_loopback_rx                    0.00%        100    ZERO                 
+        covered/total bins:                                 0         14                      
+        missing/total bins:                                14         14                      
+        % Hit:                                          0.00%        100                      
+ Covergroup instance \/tb_uart_loopback/u_uart_coverage/cg_inst  
+                                                       72.22%        100    Uncovered            
+    covered/total bins:                                    11         40                      
+    missing/total bins:                                    29         40                      
+    % Hit:                                             27.50%        100                      
+    Coverpoint cp_tx_byte                               0.00%        100    ZERO                 
+        covered/total bins:                                 0          7                      
+        missing/total bins:                                 7          7                      
+        % Hit:                                          0.00%        100                      
+        bin zero                                            0          1    ZERO                 
+        bin all_ones                                        0          1    ZERO                 
+        bin pattern_a                                       0          1    ZERO                 
+        bin pattern_b                                       0          1    ZERO                 
+        bin low_vals                                        0          1    ZERO                 
+        bin mid_vals                                        0          1    ZERO                 
+        bin high_vals                                       0          1    ZERO                 
+    Coverpoint cp_rx_byte                               0.00%        100    ZERO                 
+        covered/total bins:                                 0          7                      
+        missing/total bins:                                 7          7                      
+        % Hit:                                          0.00%        100                      
+        bin zero                                            0          1    ZERO                 
+        bin all_ones                                        0          1    ZERO                 
+        bin pattern_a                                       0          1    ZERO                 
+        bin pattern_b                                       0          1    ZERO                 
+        bin low_vals                                        0          1    ZERO                 
+        bin mid_vals                                        0          1    ZERO                 
+        bin high_vals                                       0          1    ZERO                 
+    Coverpoint cp_tx_fifo_full                        100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_full                                       7          1    Covered              
+    Coverpoint cp_tx_fifo_empty                       100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_empty                                   4141          1    Covered              
+    Coverpoint cp_rx_fifo_full                        100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_full                                     802          1    Covered              
+    Coverpoint cp_rx_fifo_empty                       100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_empty                                  15357          1    Covered              
+    Coverpoint cp_frame_error                         100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_frame_error                            12896          1    Covered              
+    Coverpoint cp_overrun_error                       100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_overrun_error                              2          1    Covered              
+    Coverpoint cp_loopback                            100.00%        100    Covered              
+        covered/total bins:                                 2          2                      
+        missing/total bins:                                 0          2                      
+        % Hit:                                        100.00%        100                      
+        bin disabled                                    13041          1    Covered              
+        bin enabled                                     16739          1    Covered              
+    Coverpoint cp_back_to_back                        100.00%        100    Covered              
+        covered/total bins:                                 1          1                      
+        missing/total bins:                                 0          1                      
+        % Hit:                                        100.00%        100                      
+        bin seen_back_to_back                              17          1    Covered              
+    Coverpoint cp_baud_div                             66.66%        100    Uncovered            
+        covered/total bins:                                 2          3                      
+        missing/total bins:                                 1          3                      
+        % Hit:                                         66.66%        100                      
+        bin fast_sim                                    29774          1    Covered              
+        bin mid                                             6          1    Covered              
+        bin slow                                            0          1    ZERO                 
+    Cross cross_loopback_rx                             0.00%        100    ZERO                 
+        covered/total bins:                                 0         14                      
+        missing/total bins:                                14         14                      
+        % Hit:                                          0.00%        100                      
+        bin <disabled,zero>                                 0          1    ZERO                 
+        bin <enabled,zero>                                  0          1    ZERO                 
+        bin <disabled,all_ones>                             0          1    ZERO                 
+        bin <enabled,all_ones>                              0          1    ZERO                 
+        bin <disabled,pattern_a>                            0          1    ZERO                 
+        bin <enabled,pattern_a>                             0          1    ZERO                 
+        bin <disabled,pattern_b>                            0          1    ZERO                 
+        bin <enabled,pattern_b>                             0          1    ZERO                 
+        bin <disabled,low_vals>                             0          1    ZERO                 
+        bin <enabled,low_vals>                              0          1    ZERO                 
+        bin <disabled,mid_vals>                             0          1    ZERO                 
+        bin <enabled,mid_vals>                              0          1    ZERO                 
+        bin <disabled,high_vals>                            0          1    ZERO                 
+        bin <enabled,high_vals>                             0          1    ZERO                 
+
+TOTAL COVERGROUP COVERAGE: 72.22%  COVERGROUP TYPES: 1
+
+ASSERTION RESULTS:
+--------------------------------------------------------------------
+Name                 File(Line)                   Failure      Pass 
+                                                  Count        Count
+--------------------------------------------------------------------
+/tb_uart_loopback/u_uart_assertions/assert__bus_ready_has_recent_valid_transaction
+                     ../../tb/uart_assertions.sv(211)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__external_rx_mux_correct
+                     ../../tb/uart_assertions.sv(199)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__loopback_mux_correct
+                     ../../tb/uart_assertions.sv(191)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__frame_error_caused_by_invalid_stop_bit
+                     ../../tb/uart_assertions.sv(179)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__invalid_stop_bit_generates_frame_error
+                     ../../tb/uart_assertions.sv(171)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__valid_stop_bit_generates_rx_core_valid
+                     ../../tb/uart_assertions.sv(163)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__rx_core_valid_after_valid_stop_bit
+                     ../../tb/uart_assertions.sv(155)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__rx_valid_matches_fifo_not_empty
+                     ../../tb/uart_assertions.sv(147)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__no_read_when_rx_fifo_empty
+                     ../../tb/uart_assertions.sv(135)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__no_write_when_tx_fifo_full
+                     ../../tb/uart_assertions.sv(127)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__tx_stop_bit_high
+                     ../../tb/uart_assertions.sv(115)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__tx_start_bit_low
+                     ../../tb/uart_assertions.sv(107)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__tx_idle_high
+                     ../../tb/uart_assertions.sv(99)
+                                                        0          1
+/tb_uart_loopback/u_uart_assertions/assert__no_x_key_outputs
+                     ../../tb/uart_assertions.sv(87)
+                                                        0          1

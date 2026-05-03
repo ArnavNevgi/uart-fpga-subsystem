@@ -59,5 +59,12 @@ add wave -divider "ERROR FLAGS"
 add wave -radix binary sim:/tb_uart_loopback/dut/frame_error
 add wave -radix binary sim:/tb_uart_loopback/dut/overrun_error
 
+add wave -divider "ASSERTION/COVERAGE EVENTS"
+add wave -radix hexadecimal sim:/tb_uart_loopback/bus_wdata
+add wave -radix hexadecimal sim:/tb_uart_loopback/bus_rdata
+add wave -radix binary sim:/tb_uart_loopback/dut/loopback_enable
+add wave -radix binary sim:/tb_uart_loopback/dut/frame_error
+add wave -radix binary sim:/tb_uart_loopback/dut/overrun_error
+
 run 0
 wave zoom full
