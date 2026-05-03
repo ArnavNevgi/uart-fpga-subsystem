@@ -1,38 +1,43 @@
 # Deleting old work library...
+# ** Warning: (vdel-134) Unable to remove locked optimized design "_opt1".  Locker is ajnev@NEVGI.
+# Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/@_opt".
+# Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/_temp".
 # Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work/_tempmsg".
-# Error 133: Unable to remove directory "C:/Users/ajnev/OneDrive/Desktop/uart-fpga-subsystem/sim/questa/work".
 # Creating work library...
-# ** Error: (vlib-35) Failed to create directory "work".
-# File exists. (errno = EEXIST)
+# ** Warning: (vlib-34) Library already exists at "work".
 # QuestaSim-64 vmap 10.7c Lib Mapping Utility 2018.08 Aug 18 2018
 # vmap work work 
 # Modifying modelsim.ini
 # Compiling RTL files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 23:22:20 on May 03,2026
+# Start time: 23:39:49 on May 03,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/rtl.f 
 # -- Compiling package uart_pkg
 # -- Compiling module baud_gen
 # -- Compiling package uart_tx_sv_unit
 # -- Importing package uart_pkg
 # -- Compiling module uart_tx
+# -- Compiling package uart_rx_sv_unit
+# -- Importing package uart_pkg
+# -- Compiling module uart_rx
 # 
 # Top level modules:
 # 	baud_gen
 # 	uart_tx
-# End time: 23:22:20 on May 03,2026, Elapsed time: 0:00:00
+# 	uart_rx
+# End time: 23:39:49 on May 03,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Compiling TB files...
 # QuestaSim-64 vlog 10.7c Compiler 2018.08 Aug 18 2018
-# Start time: 23:22:20 on May 03,2026
+# Start time: 23:39:49 on May 03,2026
 # vlog -reportprogress 300 -sv -work work -f ../../filelists/tb.f 
-# -- Compiling package tb_uart_tx_sv_unit
+# -- Compiling package tb_uart_rx_sv_unit
 # -- Importing package uart_pkg
-# -- Compiling module tb_uart_tx
+# -- Compiling module tb_uart_rx
 # 
 # Top level modules:
-# 	tb_uart_tx
-# End time: 23:22:20 on May 03,2026, Elapsed time: 0:00:00
+# 	tb_uart_rx
+# End time: 23:39:49 on May 03,2026, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Compilation completed.
 # Check ../logs/compile.log for full transcript.

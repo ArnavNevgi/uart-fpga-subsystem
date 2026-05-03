@@ -27,7 +27,7 @@ module tb_uart_tx;
     .clk       (clk),
     .rst_n     (rst_n),
     .enable    (tx_busy),
-    .baud_div  (16'(TEST_DIV)),
+    .baud_div  (16'd4),
     .baud_tick (baud_tick)
   );
 

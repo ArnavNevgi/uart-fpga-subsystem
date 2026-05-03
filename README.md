@@ -75,9 +75,9 @@ Project Phases
 
 | Phase | Description                                                   | Status      |
 | ----: | ------------------------------------------------------------- | ----------- |
-|     0 | Project setup, specification, register map, verification plan | In progress |
-|     1 | Baud generator and UART TX                                    | Not started |
-|     2 | UART RX with 16x oversampling                                 | Not started |
+|     0 | Project setup, specification, register map, verification plan | Complete    |
+|     1 | Baud generator and UART TX                                    | Complete    |
+|     2 | UART RX with 16x oversampling                                 | Complete    |
 |     3 | TX/RX FIFO integration                                        | Not started |
 |     4 | Register interface and top-level integration                  | Not started |
 |     5 | Internal loopback mode                                        | Not started |
@@ -86,3 +86,22 @@ Project Phases
 |     8 | Vivado synthesis, implementation, timing, utilization         | Not started |
 |     9 | GitHub polish and resume documentation                        | Not started |
 
+
+## Phase 1 Simulation Result
+
+The UART transmitter was verified using a self-checking SystemVerilog testbench.
+
+Validated behavior:
+
+- TX idle line remains high after reset
+- Start bit is transmitted low
+- 8 data bits are transmitted LSB-first
+- Stop bit is transmitted high
+- `tx_busy` asserts during frame transmission
+- `tx_done` asserts after frame completion
+- Multiple byte values were verified: `0xA5`, `0x3C`, `0x00`, `0xFF`
+
+Result:
+
+```text
+[PHASE 1 PASS] UART transmitter verified.
