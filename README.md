@@ -235,6 +235,40 @@ sim/logs/phase7_coverage_report.txt
 
 Timing is met at 100 MHz. DRC reports critical warnings for missing `PACKAGE_PIN`/`IOSTANDARD` assignments and a warning for missing `CFGBVS`/`CONFIG_VOLTAGE`. These are expected at this IP-style implementation stage and must be resolved before generating a board-ready bitstream.
 
+
+## Intel Quartus Prime Portability Validation
+
+The same synthesizable UART RTL was also compiled in Intel Quartus Prime to validate cross-vendor FPGA portability.
+
+Quartus target:
+
+```text
+Intel Cyclone V 5CGXFC7C7F23C8
+Quartus Prime Lite Edition 25.1std.0 Build 1129
+Clock target: 100 MHz
+Top-level entity: uart_top
+
+| Item                      | Result               |
+| ------------------------- | -------------------- |
+| Flow Status               | Successful           |
+| Errors                    | 0                    |
+| Warnings                  | 10                   |
+| ALMs                      | 181 / 56,480, <1%    |
+| Registers                 | 312                  |
+| Pins                      | 75 / 268, 28%        |
+| Block Memory Bits         | 256 / 7,024,640, <1% |
+| M10K Blocks               | 2 / 686, <1%         |
+| DSP Blocks                | 0 / 156, 0%          |
+| Setup Slack               | +4.215 ns            |
+| Setup TNS                 | 0.000 ns             |
+| Hold Slack                | +0.390 ns            |
+| Hold TNS                  | 0.000 ns             |
+| Minimum Pulse Width Slack | +3.424 ns            |
+
+100 MHz timing met on Intel Cyclone V. [QUARTUS PORT PASS] Cross-vendor RTL synthesis, fitting, and timing validation completed.
+
+Detailed Report: docs/quartus_port_report.md
+
 ## Known Limitations
 
 This project is currently a software-only FPGA implementation and verification project.
@@ -257,5 +291,3 @@ Add parity support.
 Add configurable stop-bit support.
 Add interrupt support for RX valid, TX empty, frame error, and overrun error.
 Add UVM-based verification as an optional advanced extension.
-
-
